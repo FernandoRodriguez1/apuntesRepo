@@ -1,0 +1,215 @@
+---------------------------- UNIDAD 1 ----------------------------
+
+¿Qué es React?
+Una biblioteca Javascript para construir interfaces de usuario
+El nombre de React viene del adjetivo reactive que nos da a entender que lo que buscamos
+son interfaces de usuario reactivas al input del mismo, que se comporten de manera similar
+a una app de nuestro teléfono.
+
+La principal ventaja de React sobre sus competidores de front-end es la flexibilidad de uso,
+ya que al ser React una librería basada en componentes, solo cubre las funcionalidades
+más básicas del desarrollo front-end. Es decir, su principal ventaja es su principal
+desventaja a la vez.
+
+Angular, en cambio, es un framework lleno de funcionalidades y utiliza Typescript. Lo que
+sucede con Angular es que ha perdido relevancia a medida que avanza el tiempo (más que
+nada en mercados norteamericanos) y es considerado para proyectos pequeños o
+medianos lo que se denomina como overkill, es decir, demasiado para los requerimientos
+del cliente.
+
+
+Construir SPA’s con React
+Las single page application o SPA (aplicaciones de única página) son aplicaciones web que
+se traen del servidor una sola página (llamada index.html o main.html) que se encargará de
+realizar la totalidad del manejo del sistema web front-end. Esto es ampliamente diferente al
+manejo de páginas múltiples antiguo, donde cada página de HTML era servida al usuario
+para su navegación. La posibilidad de que la navegación (movernos entre distintas páginas
+internas del sistema web) sea tan fluida es porque siempre estamos navegando dentro del
+mismo documento HTML.
+
+¿Por qué usar React?
+Como desarrolladores de software, siempre vamos a buscar agilizar nuestros
+procesos para conseguir escribir mejor código en menos tiempo. Menos código a su
+vez nos permite obtener un código más prolijo, más legible y más sencillo de testear
+
+
+Array functions
+Las funciones aplicadas a arreglos (array functions) son funciones que nos permiten
+modificar un arreglo original. Hay una amplia variedad de ellas, aquí mostraremos solo el
+funcionamiento de 3 y nombraremos algunas más.
+
+map()
+Esta función nos permite realizar cambios sobre cada uno de los elementos en un arreglo.
+Retorna un nuevo arreglo con la forma deseada
+
+filter()
+Esta función nos permite crear un sub-arreglo que contenga todos los elementos que
+cumplen cierta condición. También nos devuelve un arreglo.
+
+reduce()
+Es una función que justamente nos permite reducir un arreglo de valores a un solo valor (útil
+para realizar sumatorias, o promedios, por ejemplo). Nos devuelve un valor.
+
+
+concat(): se utiliza para concatenar dos arreglos.
+● slice(): se utiliza para crear nuevos arreglos cortando en una posición de inicio y de
+fin al anterior.
+● find(): devuelve el primer elemento encontrado que cumpla una condición en la
+lista de elementos.
+
+
+Qué son los componentes? Son bloques de código que funcionan como unidad principal
+de trabajo en la librería React. Se trabaja con componentes por razones principales:
+● Reusabilidad: después de crear un componente el mismo puede ser usado en
+distintas partes del sistema web. Esto nos ayuda a evitar repeticiones.
+● Separación de funcionalidades: ya que cada componente podrá tener su lógica
+interna, evitaremos problemas comunes como demasiado código en un solo archivo.
+
+¿Cómo se construyen los componentes? Como toda interfaz de usuario moderna, los
+componentes están compuestos por HTML5, CSS3 y JS. La diferencia es que React utiliza
+un acercamiento declarativo en la construcción de estos componentes, donde nosotros
+definiremos el estado deseado de los elementos en el sitio web, y React se encargará de
+traducirlos al mismo. Es como si nosotros construyéramos nuestros propios elementos
+HTML.
+
+● package.json, contiene la información de los paquetes instalados (nombre y
+versionados), junto con las dependencias instaladas.
+● La carpeta src (source), donde se encuentra el código fuente de toda la página.
+● La carpeta node_modules, donde están instalados todos los paquetes para que
+funcione React (y donde se van a instalar las futuras librerías que usemos). El
+nombre de la misma aparece en gris porque esta carpeta NO DEBEMOS subirla a
+git.
+
+---------------------------- UNIDAD 2 ----------------------------
+
+¿Que retorna useState? Retorna un arreglo con dos valores, el primer valor es nuestra
+nueva variable ya inicializada y el segundo es una función que nos servirá para setear el
+valor de dicha variable. Podemos utilizar array destructuring para obtener ambos, ya que
+en array destructuring solo importa la posición de los elementos.
+useState sólo puede ser
+llamada dentro del componente, no puede ser llamada fuera del mismo o dentro de una
+función anidada (como clickHandler).
+
+utiliza la prop key que permite identificar unívocamente a cada elemento de
+la lista de manera que sea más sencillo llevar cuenta de que elementos han sido creados,
+modificados o eliminados en la lista.
+No es recomendable usar el index del arreglo ya que eso puede llevar a errores al momento
+de actualizar las listas.
+Nota: recordar agregar id's al arreglo inicial de libros en caso de que no lo tengan.
+
+
+---------------------------- UNIDAD 3 ----------------------------
+useRef
+
+El concepto de referencias (o refs en React) nos permite acceder a los elementos nativos
+del DOM, de manera que tengamos dentro del código, un snapshot de lo que está
+sucediendo en el DOM.
+¿Para qué se utiliza esto? Esto nos permite tanto obtener el valor actual del elemento (como
+por ejemplo en los formularios) como también aplicar eventos en el mismo (focus, blur).
+Vamos a crear dos referencias a los input de email y password en nuestro Login. Los
+mismos se escriben de la siguiente manera:
+const nameRef = useRef(null);
+Recordemos importar useRef de react para poder utilizarlo.El parámetro que enviamos
+dentro del useRef (en este caso null) es el valor con el que va a comenzar esa referencia
+
+Componentes controlados vs componentes no controlados
+
+Debido a que el uso de refs en React nos permite cambiar el valor e interactuar con los
+elementos del formulario, ha nacido durante los últimos años dos terminologías distintas
+para sí el componente maneja los valores internos mediante React o mediante refs.
+Si por ejemplo, los valores de título, autor, fecha de lectura y cantidad de páginas lo
+modificamos accediendo por refs (es decir, nombreDeRef.current.value), el componente
+sería no controlado, ya que las actualizaciones de esos valores no corre por React, sino
+por el DOM del navegador.
+Si los valores de esos inputs los actualizamos por estado, el componente es controlado, ya
+que React controla qué está pasando internamente mediante el estado.
+Hay que tener en cuenta que el uso de refs no dispara una reevaluación del
+componente. React en su documentación recomienda que, en la mayor parte de los casos,
+utilicemos componentes controlados, de manera de que el código sea más limpio y trazable.
+
+Las rutas protegidas (protected routes) son aquellas rutas o paths que el usuario solo puede
+acceder mediante determinadas condiciones, sean estas por ejemplo un rol de usuario
+específico, poseer un permiso específico o al menos, estar logueado en la aplicación.
+Aquellas rutas que no están protegidas se la denomina rutas públicas (public routes)
+
+---------------------------- UNIDAD 4 ----------------------------
+
+Efectos secundarios o paralelos
+¿Qué son los efectos secundarios?
+El objetivo principal de React se divide en dos partes: el renderizado de la interfaz de
+usuario y reaccionar ante los inputs del usuario. Dentro de esos dos objetivos se
+encuentran sub-objetivos tales como:
+● Evaluar y renderizar JSX.
+● Manejar el state y las props.
+● Reaccionar a eventos e inputs que genera el usuario.
+● Re-evaluar componentes ante cambios de props y state.
+Todo esto lo cubre la librería React mediante las herramientas y features que ya vienen
+consigo misma.
+¿Qué son entonces los efectos, o los efectos secundarios? Bueno, todo lo demás.
+Son tareas que suceden por fuera del ciclo de vida normal de los componentes, ya que
+pueden llegar a bloquear o a retrasar el renderizado de los mismos. Los efectos se usan en
+general para:
+● Mandar pedidos al servidor mediante el protocolo HTTP.
+● Guardar data en el Data Storage del navegador.
+● Poner y manejar temporizadores
+
+Qué usar y qué no usar como dependencias?
+Como dependencias no deberíamos usar:
+● Funciones que actualizan el estado (setFormValid por ejemplo)
+● Funciones de API built-in (como por ejemplo, las que trabajan con el local storage o
+las que conectan con el backend (fetch))
+● Variables o funciones definidas por fuera del componente.
+6
+Unidad 4.1: Efectos secundarios
+Básicamente, no debemos agregar nada que no vaya a cambiar durante el ciclo de vida del
+componente.
+
+
+API
+
+El cliente solicita información (GET): a través de un formulario / buscador /
+herramienta de UI/UX, el cliente solicita datos al servidor, que a su vez este realiza la
+consulta (query) dentro de la base de datos. La base de datos devuelve los valores
+requeridos que luego el servidor envía al cliente para su visualización.
+
+El cliente desea guardar información(POST): a través de un formulario / herramienta
+de UI/UX, el cliente solicita guardar nuevos datos al servidor, que a su vez este
+realiza la inserción correspondiente dentro de la base de datos. La base de datos
+guarda los valores requeridos
+
+fetch es una función asíncrona de javascript que me permite realizar requests al
+servidor. Posee dos parámetros:
+○ La URL / endpoint donde queremos realizar el pedido.
+○ Un objeto javascript con los headers requeridos de la request (en ellos puede
+ir el token, el tipo de archivo que esperamos recibir / mandar, etc)
+
+Existen otros métodos de request (PUT, PATCH, DELETE) que siguen la fórmula del POST
+pero realizan funcionalidades distintas (PUT - modificar valores, PATCH - modificar
+propiedad de una entidad, DELETE - eliminar una entidad).
+
+
+Múltiples contextos
+React nos permite crear múltiples contextos que convivan según las necesidades de la
+aplicación. A continuación, armaremos 3 distintos:
+● AuthenticationContext: en donde el usuario al hacer login, guarde su email.
+● ThemeContext: en donde mediante un swich en la UI, intercambie el tema de la
+aplicación.
+● APIContext: en donde podamos disparar un estado de Login en nuestra página.
+
+Optimización mediante la memorización
+La memorización (memoization) es una técnica que logra que las aplicaciones se vuelvan
+más eficientes, y por ende más rápidas (con mejor performance).Esto lo realiza guardando
+los resultados del cómputo en el caché y buscando esa información cuando realmente la
+necesita.
+Encerrar un componente en memo para obtener la versión memoizada de ese componente.
+La versión memoizada de tu componente no se va a re-evaluar cuando su componente
+padre sea re-evaluado siempre y cuando sus props no cambien.
+
+
+useMemo
+useMemo es un hook de React que nos permite .memoizar el resultado de una función o
+cálculo complejo, de manera que evitemos Similar a useCallback, toma dos argumentos,
+la función a guardar y las dependencias que al cambiar, se ejecuta la anterior función.
+
+Podemos evitar esto agregando un useCallback, un hook de React que le indica que no
+debe re crear esa función en cada re evaluación.
