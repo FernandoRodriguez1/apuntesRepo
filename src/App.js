@@ -1,12 +1,7 @@
 import React from "react";
-import FormRunner from "./FormRunner";
 
 const App = () => {
-  return (
-    <div>
-      <FormRunner />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default App;

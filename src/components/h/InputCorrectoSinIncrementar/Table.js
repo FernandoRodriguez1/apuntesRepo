@@ -7,11 +7,12 @@ const Table = () => {
   const handleClick = (e) => {
     setLeggs(e.target.value);
   };
+  console.log(leggs);
   return (
     <div>
       <h1>Ingrese el numero</h1>
       <TableInput kaka={handleClick} />
-      {leggs === "4" ? <p>CORRECTO</p> : <p>ERROR</p>}
+      {leggs === "4" ? <p>CORRECT</p> : <p>ERROR</p>}
     </div>
   );
 };
