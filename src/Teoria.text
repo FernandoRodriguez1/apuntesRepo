@@ -41,14 +41,33 @@ funcionamiento de 3 y nombraremos algunas más.
 map()
 Esta función nos permite realizar cambios sobre cada uno de los elementos en un arreglo.
 Retorna un nuevo arreglo con la forma deseada
+Ejemplo en Books.json
 
 filter()
 Esta función nos permite crear un sub-arreglo que contenga todos los elementos que
 cumplen cierta condición. También nos devuelve un arreglo.
+Ejemplo en Books.json
 
 reduce()
 Es una función que justamente nos permite reducir un arreglo de valores a un solo valor (útil
 para realizar sumatorias, o promedios, por ejemplo). Nos devuelve un valor.
+import React from 'react';
+
+const ExampleComponent = () => {
+  const numbers = [1, 2, 3, 4, 5];
+
+  // La función reducer toma dos parámetros: el acumulador y el elemento actual.
+  // En cada iteración, el acumulador se actualiza sumando el elemento actual.
+  const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  return (
+    <div>
+      <p>La suma de los números es: {sum}</p>
+    </div>
+  );
+};
+
+export default ExampleComponent;
 
 
 concat(): se utiliza para concatenar dos arreglos.
@@ -112,6 +131,9 @@ const nameRef = useRef(null);
 Recordemos importar useRef de react para poder utilizarlo.El parámetro que enviamos
 dentro del useRef (en este caso null) es el valor con el que va a comenzar esa referencia
 
+
+
+
 Componentes controlados vs componentes no controlados
 
 Debido a que el uso de refs en React nos permite cambiar el valor e interactuar con los
@@ -119,9 +141,13 @@ elementos del formulario, ha nacido durante los últimos años dos terminología
 para sí el componente maneja los valores internos mediante React o mediante refs.
 Si por ejemplo, los valores de título, autor, fecha de lectura y cantidad de páginas lo
 modificamos accediendo por refs (es decir, nombreDeRef.current.value), el componente
-sería no controlado, ya que las actualizaciones de esos valores no corre por React, sino
+sería no controlado (Por otro lado, un componente no controlado es aquel en el que los valores de los elementos del formulario están manejados por el DOM en lugar de 
+estar vinculados explícitamente al estado de React. En este caso, React no controla directamente los valores de los elementos del formulario, y 
+generalmente se obtienen los valores del DOM usando referencias o métodos nativos del DOM.), ya que las actualizaciones de esos valores no corre por React, sino
 por el DOM del navegador.
-Si los valores de esos inputs los actualizamos por estado, el componente es controlado, ya
+Si los valores de esos inputs los actualizamos por estado, el componente es controlado(Un componente controlado es aquel en el que el estado y el valor de sus 
+elementos de formulario (por ejemplo, input, select, textarea, etc.) están vinculados explícitamente al estado de React. 
+Esto significa que el componente obtiene su valor del estado de React y también actualiza el estado de React cuando el usuario interactúa con él), ya
 que React controla qué está pasando internamente mediante el estado.
 Hay que tener en cuenta que el uso de refs no dispara una reevaluación del
 componente. React en su documentación recomienda que, en la mayor parte de los casos,
@@ -207,9 +233,10 @@ padre sea re-evaluado siempre y cuando sus props no cambien.
 
 
 useMemo
-useMemo es un hook de React que nos permite .memoizar el resultado de una función o
+useMemo es un hook de React que nos permite .memorizar el resultado de una función o
 cálculo complejo, de manera que evitemos Similar a useCallback, toma dos argumentos,
 la función a guardar y las dependencias que al cambiar, se ejecuta la anterior función.
+ejemplo en useMemo.js
 
 Podemos evitar esto agregando un useCallback, un hook de React que le indica que no
 debe re crear esa función en cada re evaluación.
