@@ -1,3 +1,9 @@
+useEffect: es un hook que nos permite ejecutar codigo arbitrario cuando el componente se monta en el dom y cada vez que cambian 
+las dependencias que nosotros les digamos.
+como minimo se ejecuta una vez, al no poner [], se ejecutara cada vez que se renderice el componente.
+dentro de [] van las dependencias, es decir, valores que nosotros queremos decir q cada vez que estos cambien su valor, se ejecute el useEffect.
+
+
 ---------------------------- UNIDAD 1 ----------------------------
 
 ¿Qué es React?
@@ -108,6 +114,7 @@ en array destructuring solo importa la posición de los elementos.
 useState sólo puede ser
 llamada dentro del componente, no puede ser llamada fuera del mismo o dentro de una
 función anidada (como clickHandler).
+Nos permite tener un estado que al cambiar vuelve a renderizar nuestro componente para reflejar en la interfaz los cambios
 
 utiliza la prop key que permite identificar unívocamente a cada elemento de
 la lista de manera que sea más sencillo llevar cuenta de que elementos han sido creados,
@@ -125,11 +132,8 @@ del DOM, de manera que tengamos dentro del código, un snapshot de lo que está
 sucediendo en el DOM.
 ¿Para qué se utiliza esto? Esto nos permite tanto obtener el valor actual del elemento (como
 por ejemplo en los formularios) como también aplicar eventos en el mismo (focus, blur).
-Vamos a crear dos referencias a los input de email y password en nuestro Login. Los
-mismos se escriben de la siguiente manera:
-const nameRef = useRef(null);
-Recordemos importar useRef de react para poder utilizarlo.El parámetro que enviamos
-dentro del useRef (en este caso null) es el valor con el que va a comenzar esa referencia
+
+Ejemplo useRef.js
 
 
 
@@ -230,6 +234,14 @@ necesita.
 Encerrar un componente en memo para obtener la versión memoizada de ese componente.
 La versión memoizada de tu componente no se va a re-evaluar cuando su componente
 padre sea re-evaluado siempre y cuando sus props no cambien.
+Parámetros:
+● Componente: aquel componente que queremos memoizar.
+● (opcional) arePropsEqual?: una función que acepta dos argumentos: las props
+previas del componente y las nuevas. Debería devolver verdadero si las props
+elegidas son iguales.y falso si no lo son, lo que va a especificar al componente si es
+necesaria su re evaluación.
+Retorna:
+El componente memoizado
 
 
 useMemo
