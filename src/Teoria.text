@@ -57,23 +57,7 @@ Ejemplo en Books.json
 reduce()
 Es una función que justamente nos permite reducir un arreglo de valores a un solo valor (útil
 para realizar sumatorias, o promedios, por ejemplo). Nos devuelve un valor.
-import React from 'react';
-
-const ExampleComponent = () => {
-  const numbers = [1, 2, 3, 4, 5];
-
-  // La función reducer toma dos parámetros: el acumulador y el elemento actual.
-  // En cada iteración, el acumulador se actualiza sumando el elemento actual.
-  const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-
-  return (
-    <div>
-      <p>La suma de los números es: {sum}</p>
-    </div>
-  );
-};
-
-export default ExampleComponent;
+Ejemplo en example.js
 
 
 concat(): se utiliza para concatenar dos arreglos.
@@ -134,9 +118,6 @@ sucediendo en el DOM.
 por ejemplo en los formularios) como también aplicar eventos en el mismo (focus, blur).
 
 Ejemplo useRef.js
-
-
-
 
 Componentes controlados vs componentes no controlados
 

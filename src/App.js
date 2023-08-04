@@ -1,4 +1,7 @@
 import React from "react";
+import ExampleComponent from "./components/example";
+import ClickCounter from "./components/useRef";
+import FormRunner from "./components/FormRunner";
 
 const App = () => {
   // const books = [
@@ -8,7 +11,11 @@ const App = () => {
   //   { title: "Martín Fierro", rating: 9.2 },
   // ]; array para probar
 
-  return <div></div>;
+  return (
+    <div>
+      <FormRunner />
+    </div>
+  );
 };
 
 export default App;

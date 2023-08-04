@@ -4,13 +4,13 @@ const FormRunner = () => {
   const [days, setDays] = useState(1);
 
   const handleIncrement = () => {
-    if (days < 7) {
+    if (days < 8) {
       setDays(days + 1);
     }
   };
 
   const handleDecrement = () => {
-    if (days > 1) {
+    if (days > 0) {
       setDays(days - 1);
     }
   };
@@ -26,7 +26,8 @@ const FormRunner = () => {
       <Button onClick={handleIncrement}>+</Button>
       <Button onClick={handleDecrement}>-</Button>
 
-      {days < 1 || (days > 7 && <p>¡La semana solo tiene 7 días!</p>)}
+      {days > 7 && <p>¡La semana solo tiene 7 días!</p>}
+      {days <= 0 && <p>¡La semana tiene 1-7 días!</p>}
     </div>
   );
 };
