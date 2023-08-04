@@ -2,6 +2,8 @@ import React from "react";
 import ExampleComponent from "./components/example";
 import ClickCounter from "./components/useRef";
 import FormRunner from "./components/FormRunner";
+import TodoList from "./components/Tarea";
+import RegistrationForm from "./components/form";
 
 const App = () => {
   // const books = [
@@ -13,7 +15,7 @@ const App = () => {
 
   return (
     <div>
-      <FormRunner />
+      <RegistrationForm />
     </div>
   );
 };
