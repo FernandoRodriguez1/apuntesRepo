@@ -18,7 +18,7 @@ const FactorialCalculator = () => {
       <input
         type="number"
         value={number}
-        onChange={(e) => setNumber(parseInt(e.target.value))}
+        onChange={(e) => setNumber(e.target.value)}
       />
       <p>
         Factorial of {number} is: {factorial}
