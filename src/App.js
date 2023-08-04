@@ -4,6 +4,7 @@ import ClickCounter from "./components/useRef";
 import FormRunner from "./components/FormRunner";
 import TodoList from "./components/Tarea";
 import RegistrationForm from "./components/form";
+import App2 from "./components/api2";
 
 const App = () => {
   // const books = [
@@ -15,7 +16,7 @@ const App = () => {
 
   return (
     <div>
-      <RegistrationForm />
+      <App2 />
     </div>
   );
 };
