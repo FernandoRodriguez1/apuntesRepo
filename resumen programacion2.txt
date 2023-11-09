@@ -1,3 +1,101 @@
+--------- UNIDAD 1---------
+Net es un framework con herramientas para el desarrollo de software creado por Microsoft y lanzado en 2002. 
+NET Framework
+ La última versión fue la 4.8 fue en abril de 2019. Por mucho tiempo fue el único. El código es abierto para ver pero no se puede contribuir. 
+Es side-by-side para las versiones mayores(los cambios mayores introducen modificaciones en el CLR), es decir que puede correr concurrentemente diferentes versiones mayores en un mismo SO.
+Ofrece un gran gama de tipos de aplicaciones que se pueden crear. Algunas de estos tipos (Workloads) son los siguientes:
+
+Console Applications: aplicaciones de consola.
+Windows Communications Foundations (WCF):para comunicación de servidores web
+Windows Workflow Foundation (WF): automatizar procesos de negocios
+Windows Presentation Foundation (WPF): aplicaciones de escritorio con complejas UI
+Windows Form: aplicaciones de escritorio pero sencillas
+ASP .NET: aplicaciones web con Web Forms, Web API o MVC
+Azure (WebJobs, Cloud Services)
+
+Net Core
+
+Completamente Open Source y el código se encuentra disponible en github. Es un framework multiplataforma, más liviano que net framework. La filosofía de Net Core es tener solo las librerías necesarias, y de hacer falta se instalan paquetes NuGet los cuales no son mas que set de librerías que incorporan las librerías que hacen falta para circunstancias particulares.
+Net core puede correr SOs de Windows Red Hat(Linux), Ubuntu, Red Hat, Unix y Mac	
+
+Es totalmente side-by-side, sin importar si es una versión mayor o menor. También permite realizar aplicaciones self-contained es decir que es una aplicación que ya viene con Net Core incorporada en sí misma con todas las librerías e infraestructura que necesita
+
+Los tipos de aplicaciones son los siguientes:
+Console applications
+ASP.Net Core: MVC y API (una evulucion de net framework)
+UWP: para aplicaciones de escritorio
+
+Mono for Xamarin
+Completamente Open Source y el código se encuentra disponible en github. Es un runtime para crear aplicaciones móviles. Es la implementación Open Source y Multiplataforma del CLR original de Net Framework, es de 2001 y solo acepta C#. Por otro lado, la Librería de clases de Xamarin es de 2011, y provee clases para desarrollo móvil en Android y IoS.
+
+Xamarin permite crear aplicaciones móviles usando el entorno de desarrollo .NET en Visual Studio y usando C#. Por otro lado aplicaciones desarrolladas de esta forma son self-contained y se pueden instalar de forma nativa en dispositivos con Android o IoS y MAC Apple OS X
+
+
+Net Standard
+Todos los runtimes que fueron descriptos tienen sus librerías de clases que le permiten realizar funciones específicas para los tipos de aplicaciones que cada uno permite desarrollar. Sin embargo esto hace difícil que se puedan compartir funciones entre los distintos runtimes
+Para solucionar esto está Net Standard el cual es un set de especificaciones que indica qué funciones (implementadas APIs) se pueden usar en todas las plataformas
+
+
+Common Infrastructure
+En la estructura común de .NET podemos ver en la primera imagen de la unidad que en la hay herramientas de compilación, lenguajes y componentes de runtimes. Todo esto es común a todo el ecosistema de .NET. 
+
+
+Microsoft decidió realizar un gran esfuerzo para unificar los diferentes runtimes incorporando las características de todos el único framework. De esta forma nace .NET 5 en noviembre de 2020 y la meta es crear una nueva versión de .NET anualmente por lo que hoy en día (Febrero de 2022) la última versión de .NET es NET 6 lanzada en noviembre de 2021. Más sobre las novedades de NET 5
+El desarrollo de todos los runtimes en las páginas anteriores tiene como objetivo final entender cómo funciona NET es su completitud y también por consecuencia el de su sucesor NET 5 y sus siguientes versiones. 
+
+Cliente y Servidor
+El modelo cliente-servidor, también conocido como “principio cliente-servidor”, es un modelo de comunicación que permite la distribución de tareas dentro de una red de ordenadores.
+
+Un servidor es un hardware que proporciona los recursos necesarios para otros ordenadores o programas, pero un servidor también puede ser un programa informático que se comunica con los clientes. Un servidor acepta las peticiones del cliente, las procesa y proporciona la respuesta solicitada. También existen diferentes tipos de clientes. Un ordenador o un programa informático se comunica con el servidor, envía solicitudes y recibe respuestas del servidor. En cuanto al modelo cliente-servidor, representa la interacción entre el servidor y el cliente.
+El servidor es el responsable de proporcionar los servicios. Se encarga de ejecutar los servicios solicitados y entrega la respuesta esperada. El cliente, en cambio, utiliza y solicita los servicios proporcionados. Finalmente, recibe la respuesta del servidor
+
+
+Ventajas
+El modelo cliente-servidor es uno de los conceptos arquitectónicos más utilizados en la tecnología de redes, dado que ofrece algunas ventajas significativas.
+La administración central es una de las principales ventajas. El servidor está en el centro de la red. Todos los usuarios o clientes lo utilizan. Los recursos importantes, como bases de datos, se encuentran en el servidor y son accesibles de forma centralizada. 
+
+Derechos de acceso controlados globalmente
+El almacenamiento central de recursos importantes permite una gestión segura y global de los derechos de acceso.Para proteger los datos de la mejor manera posible, hay que establecer derechos de acceso.
+
+Un servidor para muchos clientes
+El número de clientes puede ampliarse. Varios clientes trabajan simultáneamente utilizando un único servidor. Los clientes comparten los recursos del servidor. También es posible que el servidor esté situado en un lugar distinto al de los clientes. Lo más importante es que el servidor y los clientes estén conectados a través de una red. Y por ende, no es necesario que los recursos estén en el mismo sitio. 
+
+Caída del servidor
+
+. Si el servidor se cae, los clientes dejan de funcionar porque no pueden recibir las respuestas necesarias del servidor.
+
+Recursos de un servidor
+El servidor realiza las tareas que requieren muchos recursos. La demanda de recursos de los clientes es mucho menor. Si el servidor tiene muy pocos recursos, afecta a todos los clientes. Por eso es importante elegir un proveedor que proporcione estos recursos de forma fiable.
+
+Inversión de tiempo
+Su uso requiere mucha inversion de tiempo.
+
+
+Frontend y Backend
+La división Frontend y Backend apareció en el año 2008 con la salida de HTML5 y la aparición de las nuevas APIs. Frontend es la parte del sitio web que interactúa con los usuarios, por eso decimos que está del lado del cliente. Backend es la parte que se conecta con la base de datos y el servidor que utiliza dicho sitio web, por eso decimos que el backend corre del lado del servidor.
+
+¿Qué es una API?
+Una API (Application Programming Interface) es una interfaz para que programas de software se comuniquen entre ellos 
+Pueden ser locales o remotas estas últimas utilizan un servicio web y sus arquitecturas pueden ser SOAP o REST , el tipo más común hoy en día es REST (Representational State Transfer), generalmente los archivos de información enviados y recibidos son JSON (objetos de javaScript
+. Las Api pueden ser públicas o privadas, las privadas requieren un autenticación que se realiza mediante un TOKEN, al momento de por ejemplo loguearte en una página web ésta envía tus datos y en caso de tener permisos se recibe el token, este contiene un objeto cifrado.
+
+Request y Responses
+En informática, request–response o request–reply es uno de los métodos básicos que utilizan las computadoras para comunicarse entre sí en una red, en el que la primera computadora envía una solicitud de algunos datos y la segunda responde a la solicitud.
+Para simplificar, este patrón generalmente se implementa de forma puramente sincrónica, como en las llamadas de servicio web a través de HTTP, que mantiene una conexión abierta y espera hasta que se entrega la respuesta o expira el período de tiempo de espera
+En programación web las request y las responses tiene una forma específica con secciones y atributos que deben estar presente y con determinados valores. Esto los especifica el protocolo HTTP  o HTTPS con el cual se realizan casi todas las comunicaciones web
+
+Arquitecturas multi-servidor
+También puede haber varios servidores para ofrecer un servicio, estos pueden tener diferentes “direcciones” para accederlos y ciertas configuraciones para que si la disponibilidad de algunos de ellos se ve comprometida entonces el servicio lo ofrece alguno de los otros que se encuentra en correcto estado, esta tecnica se llama “mirroring”
+
+Otro otra forma de implementar la arquitectura es mediante la adquisición de capacidad de procesamiento de la nube mediante el uso de servicios de AWS, GCP, o Azure (también hay otros pero estos claramente son los más completos y por lejos acaparan la inmensa mayoría de la oferta). Estas nubes permiten disponibilizar el servicio que queremos sin que nos tengamos que hacer cargo de la infraestructura ( el o los servidores físicos) ellos se encargan de asegurar un elevado ratio de disponibilidad a cambio del pago correspondiente. Esto se llama procesamiento distribuido
+
+Navegadores, Motores de búsqueda y Postman
+Los motores de búsqueda (Google, Bing, The Pirate Bay) son servicios web que nos proveen de las direcciones de sitios web mediante la búsqueda en enorme base de datos de sitios webs con el uso de algoritmos que intentan brindarnos las mejores aproximaciones de lo que buscamos mediante coincidencias en el contenido de los sitios y nuestros parametros de busqueda. Los navegadores (Chrome, Mozilla, Firefox, Safari, Thor) son aplicaciones que pueden usar estos buscadores para acceder a sitios webs, esencialmente lo único que necesitan los navegadores para acceder a un sitio web es su dirección (dominio o ip) y conexión a internet
+
+Postman es una aplicación que nos permite realizar solicitudes “custom” a servidores, es decir no tiene que interpretar código fuente para realizar una solicitud como lo hace un navegador con los sitios web, sino que podemos armar la solicitud como queramos. El uso de esta herramienta está limitado a probar el funcionamiento de un servidor, esto es muy útil en la programación o en el testing 
+
+
+
 ----------UNIDAD2----------
 UML: ***************
 Unified Model Language o lenguaje de modelos unificado es un herramienta que nos provee una serie de convenciones, estructuras, estándares, reglas para el análisis y diseño orientado a objetos. Es una herramienta fundamental para los programadores orientados a objetos, que nos permite pensar en los objetos de una forma ordenada y metodológica.
@@ -260,6 +358,8 @@ PATCH: El método PATCH  es utilizado para aplicar modificaciones parciales a un
 
 
 
+
+
 MVC es una propuesta de arquitectura del software utilizada para separar el código por sus distintas responsabilidades, manteniendo distintas capas que se encargan de hacer una tarea muy concreta, lo que ofrece beneficios diversos.
 MVC se usa inicialmente en sistemas donde se requiere el uso de interfaces de usuario, aunque en la práctica el mismo patrón de arquitectura se puede utilizar para distintos tipos de aplicaciones. Surge de la necesidad de crear software más robusto con un ciclo de vida más adecuado, donde se potencie la facilidad de mantenimiento, reutilización del código y la separación de conceptos.
 Su fundamento es la separación del código en tres capas diferentes, acotadas por su responsabilidad, en lo que se llaman Modelos, Vistas y Controladores.
@@ -338,7 +438,6 @@ Permite la reutilización en diferentes entornos de aplicaciones modificando los
 Promueve un enfoque coherente en todos aplicaciones y equipos
 
 
-
 Patrón repository
 
 Está diseñado para crear una capa de abstracción entre la capa de acceso a datos y la capa de lógica de negocios de una aplicación. Implementar estos patrones puede ayudar a aislar la aplicación de cambios en el almacén de datos y puede facilitar la realización de pruebas unitarias automatizadas o el desarrollo controlado por pruebas
@@ -355,3 +454,21 @@ Para poder implementar un sistema de autenticación y autorización utilizando J
 * Implementar la lógica de autorización mediante el uso de Claims en los endpoints protegidos para verificar si el usuario tiene los roles necesarios para acceder a los recursos solicitados
 * Para setear el tiempo de expiracion de un token debo generar un objeto de tipo SecurityTokenDescriptor() y modificar el atributo SigningCredentials
 
+IQueryable<T> se utiliza para proporcionar capacidades de consulta contra una fuente de datos específica donde se conoce el tipo de datos. Por ejemplo, Entity Framework implementa la interfaz IQueryable<T> para admitir consultas LINQ con una base de datos subyacente como SQL Server.3 jun 2020
+IEnumerable
+Es una interface que define el contrato de metodos a implementar por una clase determinada. De base, es implementada por iEnumerator y se utiliza para, dada una clase especifica o generica, enumerar los atributos publicos de esa misma.
+La ICollection interfaz extiende ; IDictionary y IList son interfaces más especializadas IEnumerableque extienden ICollection. Una IDictionary implementación es una colección de pares clave-valor, como la Hashtable clase . Una IList implementación es una colección de valores y se puede acceder a sus miembros por índice, como la ArrayList clase .
+
+
+Respuestas HTTP
+https://es.semrush.com/blog/codigos-de-estado-http/?kw=&cmp=LM_SRCH_DSA_Blog_ES&label=dsa_pagefeed&Network=g&Device=c&utm_content=678247163724&kwid=dsa-2232567167461&cmpid=19249322807&agpid=152775995897&BU=Core&extid=109486348731&adpos=&gad_source=1&gclid=Cj0KCQiAo7KqBhDhARIsAKhZ4uiiYydgtfRSzv_QQuGb9gGbXa-Va9puxke9cNt8bP22h8qgxQirg-AaAncmEALw_wcB
+
+1XX - Códigos informativos: el servidor acusa recibo y está procesando la solicitud.
+
+2XX - Códigos de éxito: el servidor ha recibido, entendido y procesado correctamente la solicitud.
+
+3XX - Códigos de redirección: el servidor recibió la solicitud, pero hay una redirección a otro lugar (o, en casos raros, debe completarse alguna acción adicional distinta de una redirección). 
+
+4XX - Códigos de error del cliente: el servidor no pudo encontrar (o alcanzar) la página o el web. Se trata de un error de web. 
+
+5XX - Códigos de error del servidor: el cliente hizo una petición válida, pero el servidor no pudo completarla. 
