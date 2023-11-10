@@ -1,3 +1,22 @@
+Semejanzas Dto y Entities
+Clases, no tienen comportamientos sino solo estados en su definicion.
+
+diferencias:
+Dto: es una clase solo va a ser usada en el controller, para enviar o recibir informacion.
+Entidades: son mas importantes que los dtos porque determinan la estructura de los datos asi como arquitectura de la solucion
+el dto se puede eliminar renombrar cambiar entre otros, sin hacer la migracion. una entidad en cambio no, cada cambio que se haga requiere de una migracion. Esto es porque EF usa las entidades para diseñar la base de datos y no los dtos.
+las entidades son las clases que van en el diagrama.
+
+para hacer dbset se necesita un nugget para instalar . los public <dbset> Users {get; set; } hace referencia a las tablas o a lo que nosotros queremos que se hagan tablas 
+
+DB context es una clase de EF que convierte al heredarla en contexto a la clase.
+modelBuilder.Entity<Professor>().HasData( new Professor{})
+HasData le enviamos una lista de objetos para la carga inicial de los datos
+
+migraciones : consola de administrador de paquetes Add-Migration InitialMigration -Context ConsultaContex
+en appsettings.json hay que poner "DB" : {"ConnectionString" : "Data source=ConsultaAlumnos.db } (string que tienen las credenciales) sqlite (solo pide el nombre de la base de datos)
+https://github.com/prog3tup/ConsultaAlumnos
+https://github.com/PabloPaezSheridan/ConsultaAlumnos2TUP4/tree/main/ConsultaAlumnoEnClaseTarde
 --------- UNIDAD 1---------
 Net es un framework con herramientas para el desarrollo de software creado por Microsoft y lanzado en 2002. 
 NET Framework
