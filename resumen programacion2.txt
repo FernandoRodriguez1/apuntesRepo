@@ -24,6 +24,13 @@ Mapear (hacer coincidir) las URLs de las request con las actions de la aplicaci�
 
 Si yo quisiera poder incluir en un usuario todos los url que creó ¿Qué acciones debería tomar?
 Completar la primer funcion "WithMany" alojanado los urls en la colección de la entidad user. Usar el include para los users cuando quiera obterner los urls
+
+Cual de estas opciones son correctas respecto a Interfaces en .NET
+Una clase puede implementar múltiples interfaces.
+Es un contrato que define miembros (propiedades, métodos, etc) que deben ser definidos (implementados) en la clase que implementa la interfaz.
+
+¿Cuál es el propósito principal de la inyección de dependencia?
+Evitar la dependencia entre clases y simplificar la creación y gestión de objetos en una aplicación.
 -----------------------------------------------------------------
 Semejanzas Dto y Entities
 Clases, no tienen comportamientos sino solo estados en su definicion.
