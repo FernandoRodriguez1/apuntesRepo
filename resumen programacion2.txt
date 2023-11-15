@@ -1,3 +1,30 @@
+
+¿Cual de estas opciones son correctas respecto a Interfaces en .NET?
+Una clase puede implementar múltiples interfaces
+Es un contrato que define miembros (propiedades, métodos, etc) que deben ser definidos (implementados) en la clase que implementa la interfaz.
+
+Cuál es el propósito principal de la inyección de dependencia?
+*Evitar la dependencia entre clases y simplificar la creación y gestión de objetos en una aplicación.
+
+return personas.Where(Edad => edad <= 20 && edad  >= 30) ).ToList();
+
+En la definición public ActionResult<Auto> GetAutoById([FromBody]int id) uso incorrecto del [FromBody]
+
+
+¿Cuales de estas opciones son correctas respecto a la arquitectura en capas en el diseño software?
+Separa de forma clara los roles y responsabilidades de los componentes del sistema.
+Un cambio en una capa superior debería afectar poco o nada a una capa de nivel inferior.
+
+Cuáles de las siguientes afirmaciones son verdaderas acerca del patrón de diseño Repository en una aplicación .NET? 
+El Repository actúa como una capa de acceso a datos que oculta los detalles de la fuente de datos subyacente.
+Facilita la reutilización de código al proporcionar una abstracción entre la lógica de negocio y la capa de acceso a datos.
+
+¿A que llamamos ruteo (routing) en el contexto de web apis de .NET?
+Mapear (hacer coincidir) las URLs de las request con las actions de la aplicación.
+
+Si yo quisiera poder incluir en un usuario todos los url que creó ¿Qué acciones debería tomar?
+Completar la primer funcion "WithMany" alojanado los urls en la colección de la entidad user. Usar el include para los users cuando quiera obterner los urls
+-----------------------------------------------------------------
 Semejanzas Dto y Entities
 Clases, no tienen comportamientos sino solo estados en su definicion.
 
@@ -578,3 +605,23 @@ namespace TPI_Integrador_Prog3.DBContexts
 
     }
 }
+
+IEnumerable
+
+Espacio de nombres: System.Collections
+
+Un IEnumerable es una lista o un contenedor que puede contener algunos elementos. Puede iterar a través de cada elemento en IEnumerable. No puede editar los elementos como agregar, eliminar, actualizar, etc., sino que solo usa un contenedor para contener una lista de elementos. Es el tipo más básico de contenedor de listas.
+
+Todo lo que se obtiene en un IEnumerable es un enumerador que ayuda a iterar sobre los elementos. Un IEnumerable no contiene ni siquiera el recuento de los elementos de la lista, en su lugar, tiene que iterar sobre los elementos para obtener el recuento de elementos.
+
+Un IEnumerable admite el filtrado de elementos mediante la cláusula where.
+
+ICollection
+
+Espacio de nombres: System.Collections
+
+ICollection es otro tipo de colección, que se deriva de IEnumerable y amplía su funcionalidad para agregar, quitar y actualizar elementos en la lista. ICollection también contiene el recuento de elementos en él y no necesitamos iterar sobre todos los elementos para obtener el número total de elementos.
+
+El recuento del total de elementos se puede recuperar en tiempo O(1).
+
+ICollection admite la enumeración de los elementos, el filtrado de elementos, la adición de nuevos elementos, la eliminación de elementos existentes, la actualización de elementos existentes y la obtención del recuento de elementos disponibles en la lista.
