@@ -1,3 +1,38 @@
+Respecto a ASP.NET Core request pipelines, 
+Consiste es una secuencia de clases que cumplen determinadas características, que deciden si se debe invocar al código de la próxima clase en la secuencia.
+Las clases que componen un request pipeline pueden ejecutar código antes y después del próximo componente en la secuencia
+
+
+Usted está trabajando en un proyecto que tiene una arquitectura en capas.
+Las capas son:
+- Presentación
+- Negocio
+- Persistencia
+
+¿Cuales de estas opciones son correctas?
+Si tiene que agregar una clase repositorio para implementar patrón Repository, debe agregarla en la capa de Persistencia.
+Si tiene que agregar un nuevo controller para implementar las actions que se rutean a partir de las request, debe hacerlo en la capa de Presentación.
+INCORRECTOS
+Si tiene que agregar una clase repositorio para implementar patrón Repository, debe agregarla en la capa de Negocio.
+Si tiene que agregar un nuevo controller para implementar las actions que se rutean a partir de las request, debe hacerlo en la capa de Negocio.
+Si tiene que agregar una clase para realizar validaciones y cálculos sobre un tema específico de la lógica de la aplicación, debe hacerlo en la capa de Presentación.
+Si tiene que agregar una clase para realizar validaciones y cálculos sobre un tema específico de la lógica de la aplicación, debe hacerlo en la capa de Persistencia
+
+Una Web API que sigue el estilo de arquitectura REST, es considerada RESTful si cumple con los siguientes principios:
+Client-Server, Stateless, Cache, Uniform interface y Code on demand.
+ 
+Respecto a inyección de dependencia, ¿cuales de estas opciones son correctas?
+.NET soporta la inyección de dependencias de forma integrada en el framework.
+Consiste en darle a un objeto sus variables de instancia
+ 
+En el paradigma de programación orientada a objetos (POO), ¿cuál de las siguientes afirmaciones es INCORRECTA?
+La herencia múltiple permite que una clase herede de varias clases base, lo que promueve la reutilización de código.
+La sobrecarga de métodos implica proporcionar múltiples implementaciones de un método en una misma clase con diferentes firmas.
+El encapsulamiento consiste en exponer todos los detalles internos de una clase para facilitar su uso por otras clases.
+
+¿Cuál de las siguientes afirmaciones sobre JWT en .Net son correctas?
+La firma en un JWT se utiliza para verificar la integridad de los datos y asegurar que no han sido modificados.
+El chequeo de la veracidad de un JWT se puede hacer a través de la implementación de un decorador.
 
 ¿Cual de estas opciones son correctas respecto a Interfaces en .NET?
 Una clase puede implementar múltiples interfaces
