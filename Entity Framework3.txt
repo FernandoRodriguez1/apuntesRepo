@@ -1,3 +1,10 @@
+JWT
+ 
+Seleccione las siguientes afirmaciones sobre JWT que son ciertas:
+Las secciones de un JWT son Header Payload y Signature
+El mecanismo de seguridad de un jwt reside en que la signature se arma a partir de un salt que solo conoce el servidor
+Un JWT es un token que hace referencia a una sesion y permite autenticarse
+Las claims son agregadas en el servidor cuando se genera el token
 Entity Framework
 Entity framework Core es una librería creada por Microsoft que nos permite acceder a las bases de datos, principalmente relacionales, de una forma muy simple. 
 La gran ventaja de Entity Framework Core es que es muy simple y amigable, ya que nos permite utilizar código en vez de SQL directamente. Además es compatible con la librería LINQ,aunque cuidado con hacer cosas locas con LINQ que es donde vemos reflejados los posibles problemas de rendimiento.

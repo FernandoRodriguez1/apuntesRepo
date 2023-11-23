@@ -1,3 +1,5 @@
+La afirmación sugiere que, si necesitas agregar un nuevo controlador para implementar acciones que respondan a las solicitudes (request), debes hacerlo en la capa de Presentación, que en el contexto de MVC sería el componente de Controlador. Las acciones (actions) mencionadas son métodos dentro de un controlador que responden a solicitudes HTTP específicas (GET, POST, etc.) y ejecutan la lógica correspondiente.
+
 La firma en un JWT (JSON Web Token) se utiliza para verificar la integridad de los datos y asegurar que no han sido modificados durante la transmisión. La firma es una pieza fundamental de la seguridad de JWT y se aplica al contenido del token, incluyendo los claims (reclamaciones) y cualquier información adicional que se haya incluido.
 
 Cuando se crea un JWT, se firma utilizando un algoritmo de firma y una clave secreta. Esta firma se agrega al token. Cuando el receptor recibe el JWT, puede verificar la firma utilizando la misma clave secreta. Si la firma es válida, significa que el contenido del token no ha sido alterado y se puede confiar en la información contenida en él.
@@ -155,6 +157,13 @@ El chequeo de la veracidad de un JWT se puede hacer a través de la implementaci
 ¿Cual de estas opciones son correctas respecto a Interfaces en .NET?
 Una clase puede implementar múltiples interfaces
 Es un contrato que define miembros (propiedades, métodos, etc) que deben ser definidos (implementados) en la clase que implementa la interfaz.
+Uso de interfaces para lograr polimorfismo:
+Las interfaces permiten lograr polimorfismo en .NET. Puedes tratar una instancia de una clase que implementa una interfaz como si fuera del tipo de esa interfaz.
+Propiedades en interfaces:
+Además de métodos, las interfaces pueden contener propiedades, eventos y otros miembros
+Implementaciones explícitas:
+Puedes implementar una interfaz de manera explícita en una clase. Esto es útil cuando una clase implementa dos interfaces con miembros del mismo nombre. La implementación explícita permite diferenciar entre los dos.
+Las interfaces son una parte fundamental de la programación orientada a interfaces (IOP) en .NET y son ampliamente utilizadas para lograr abstracción, encapsulamiento y flexibilidad en el diseño de software.
 
 Cuál es el propósito principal de la inyección de dependencia?
 *Evitar la dependencia entre clases y simplificar la creación y gestión de objetos en una aplicación.
