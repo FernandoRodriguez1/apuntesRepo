@@ -1,18 +1,59 @@
-La afirmación sugiere que, si necesitas agregar un nuevo controlador para implementar acciones que respondan a las solicitudes (request), debes hacerlo en la capa de Presentación, que en el contexto de MVC sería el componente de Controlador. Las acciones (actions) mencionadas son métodos dentro de un controlador que responden a solicitudes HTTP específicas (GET, POST, etc.) y ejecutan la lógica correspondiente.
+ 
+Un ORM permite:
+Mapear objetos de un lenguaje de programación a las tablas de una base de datos relacional.
+Cambiar de base de datos con mayor facilidad.
+ 
+Los patrones de arquitectura pueden implementarse a medida que el proyecto
+lo requiera, pero cuanto antes se implementen, el costo de refactorizar va a ser menor.
 
-La firma en un JWT (JSON Web Token) se utiliza para verificar la integridad de los datos y asegurar que no han sido modificados durante la transmisión. La firma es una pieza fundamental de la seguridad de JWT y se aplica al contenido del token, incluyendo los claims (reclamaciones) y cualquier información adicional que se haya incluido.
+        [HttpGet]
+        public IActionResult GetProfessors()
+        {
+          string role = User.Claims.FirtsOrDefault(c=>c.type == ClaimsTypes.Role).Value;
+		if (role == "Professor")
+            {
+                return Ok(_professorService.GetProfessors());
+            }
+            return Forbid();
+        }
 
-Cuando se crea un JWT, se firma utilizando un algoritmo de firma y una clave secreta. Esta firma se agrega al token. Cuando el receptor recibe el JWT, puede verificar la firma utilizando la misma clave secreta. Si la firma es válida, significa que el contenido del token no ha sido alterado y se puede confiar en la información contenida en él.
+ confección de diagramas de clases de un proyecto de software
+Facilitan la comprensión de los requerimientos y estructura del proyecto tanto en el análisis como en el desarrollo del mismo.
+Son una herramienta fundamental para el correcto desarrollo de la arquitectura del software.
 
-Es importante mantener la clave secreta de la firma de manera segura, ya que cualquiera que tenga acceso a la clave puede crear o modificar tokens JWT. La combinación de firma y verificación de firma en JWT proporciona un mecanismo eficaz para garantizar la integridad de los datos y prevenir la manipulación no autorizada.
+¿Cuales son los métodos que agregan las middlewares de autenticación y autorización a una Web API desarrollada en .NET?
+UseAuthentication() y UseAuthorization().
+ventajas de implementar APIs en un proyecto de software
+Permiten la comunicación entre sistemas que son compatibles con el protocolo de la API.
+Permiten desacoplar la tecnología que se utiliza para mostrar la interfaz gráfica al usuario.
+
+La afirmación sugiere que, si necesitas agregar un nuevo controlador para implementar acciones que respondan a las solicitudes (request),
+debes hacerlo en la capa de Presentación, que en el contexto de MVC sería el componente de Controlador. Las acciones (actions) mencionadas 
+son métodos dentro de un controlador que responden a solicitudes HTTP específicas (GET, POST, etc.) y ejecutan la lógica correspondiente.
+
+La firma en un JWT (JSON Web Token) se utiliza para verificar la integridad de los datos y asegurar que no han sido modificados durante la transmisión.
+ La firma es una pieza fundamental de la seguridad de JWT y se aplica al contenido del token, incluyendo los claims (reclamaciones) y 
+cualquier información adicional que se haya incluido.
+
+Cuando se crea un JWT, se firma utilizando un algoritmo de firma y una clave secreta. Esta firma se agrega al token. Cuando el receptor recibe el JWT, 
+puede verificar la firma utilizando la misma clave secreta. Si la firma es válida, significa que el contenido del token no ha sido alterado y 
+se puede confiar en la información contenida en él.
+
+Es importante mantener la clave secreta de la firma de manera segura, ya que cualquiera que tenga acceso a la clave puede crear o modificar tokens JWT. 
+La combinación de firma y verificación de firma en JWT proporciona un mecanismo eficaz para garantizar la integridad de los datos y 
+prevenir la manipulación no autorizada.
 
 
-Sí, es posible implementar la verificación de la autenticidad de un JWT a través de un patrón de diseño como el patrón de decorador. En este enfoque, podrías tener un decorador que envuelve la lógica para la verificación de JWT. Este decorador podría ser parte de tu arquitectura de capas y se podría utilizar para agregar funcionalidades específicas, como la verificación de la autenticidad del token.
+Sí, es posible implementar la verificación de la autenticidad de un JWT a través de un patrón de diseño como el patrón de decorador. 
+En este enfoque, podrías tener un decorador que envuelve la lógica para la verificación de JWT. Este decorador 
+podría ser parte de tu arquitectura de capas y se podría utilizar para agregar funcionalidades específicas, como la verificación 
+de la autenticidad del token.
 
 Aquí hay un ejemplo conceptual de cómo podrías estructurar esto:
 
 1. **Interfaz o Clase Base:**
-   Define una interfaz o clase base que represente la funcionalidad base para la verificación de JWT. Podría incluir un método como `VerifyToken` que toma un JWT y realiza la verificación.
+Define una interfaz o clase base que represente la funcionalidad base para la verificación de JWT. 
+Podría incluir un método como `VerifyToken` que toma un JWT y realiza la verificación.
 
    ```csharp
    public interface IJwtVerifier
@@ -36,7 +77,8 @@ Aquí hay un ejemplo conceptual de cómo podrías estructurar esto:
    ```
 
 3. **Decorador:**
-   Crea un decorador que implementa la misma interfaz y agrega funcionalidades específicas. En este caso, podría ser un decorador que realiza la verificación de la firma del JWT.
+Crea un decorador que implementa la misma interfaz y agrega funcionalidades específicas. 
+En este caso, podría ser un decorador que realiza la verificación de la firma del JWT.
 
    ```csharp
    public class SignatureVerificationDecorator : IJwtVerifier
@@ -69,13 +111,16 @@ Aquí hay un ejemplo conceptual de cómo podrías estructurar esto:
    bool isTokenValid = decoratedVerifier.VerifyToken("your_jwt_token");
    ```
 
-Este enfoque permite que la lógica de verificación de JWT sea modular y extensible. Puedes agregar nuevos decoradores para realizar diferentes tipos de verificaciones sin modificar la implementación base. Además, puedes cambiar dinámicamente la lógica de verificación según los requisitos específicos de tu aplicación.
+Este enfoque permite que la lógica de verificación de JWT sea modular y extensible. Puedes agregar nuevos decoradores para realizar 
+diferentes tipos de verificaciones sin modificar la implementación base. Además, puedes cambiar dinámicamente la lógica de verificación
+según los requisitos específicos de tu aplicación.
 
 
 1. **Capa de Presentación:**
    - Responsable de la interfaz de usuario y la interacción con el usuario final.
    - Contiene los controladores, vistas y modelos en el caso de una aplicación web MVC.
-   - Se encarga de recibir las solicitudes del usuario, presentar la información y enviar las solicitudes al servicio correspondiente en la capa de negocio.
+   - Se encarga de recibir las solicitudes del usuario, presentar la información y enviar las solicitudes al 
+servicio correspondiente en la capa de negocio.
 
 2. **Capa de Negocio:**
    - Contiene la lógica de negocio de la aplicación.
@@ -89,39 +134,50 @@ Este enfoque permite que la lógica de verificación de JWT sea modular y extens
    - Realiza operaciones de lectura y escritura en la base de datos.
    - Proporciona una interfaz para la capa de negocio para acceder y manipular datos de manera eficiente.
 
-Un flujo típico sería que una solicitud del usuario llegue a la capa de presentación, que luego la pasa a la capa de negocio para su procesamiento. La capa de negocio puede interactuar con la capa de persistencia para acceder a los datos necesarios. Una vez que la capa de negocio ha completado su procesamiento, la respuesta se devuelve a la capa de presentación para su presentación al usuario.
+Un flujo típico sería que una solicitud del usuario llegue a la capa de presentación, que luego la pasa a la capa de negocio para su procesamiento. 
+La capa de negocio puede interactuar con la capa de persistencia para acceder a los datos necesarios. Una vez que la capa de negocio ha completado
+su procesamiento, la respuesta se devuelve a la capa de presentación para su presentación al usuario.
 
-Esta estructura en capas facilita la separación de preocupaciones y permite cambios en una capa sin afectar directamente a las demás, lo que mejora la mantenibilidad y la flexibilidad del sistema.
+Esta estructura en capas facilita la separación de preocupaciones y permite cambios en una capa sin afectar directamente a las demás, 
+lo que mejora la mantenibilidad y la flexibilidad del sistema.
 
 
 Respecto a ASP.NET Core request pipelines, 
 --Consiste es una secuencia de clases que cumplen determinadas características, que deciden si se debe invocar al código de la próxima clase en la secuencia.
 --Las clases que componen un request pipeline pueden ejecutar código antes y después del próximo componente en la secuencia
 
-En ASP.NET Core, el término "request pipeline" se refiere al conjunto de componentes y middleware que participan en el procesamiento de una solicitud HTTP entrante. El pipeline de solicitud define el flujo de procesamiento que ocurre desde el momento en que llega una solicitud HTTP hasta que se genera la respuesta y se envía de vuelta al cliente.
+En ASP.NET Core, el término "request pipeline" se refiere al conjunto de componentes y middleware que participan en el procesamiento de una 
+solicitud HTTP entrante. El pipeline de solicitud define el flujo de procesamiento que ocurre desde el momento en que llega una solicitud HTTP 
+hasta que se genera la respuesta y se envía de vuelta al cliente.
 
 Aquí hay una descripción general de cómo funciona el pipeline de solicitud en ASP.NET Core:
 
 1. **Middleware:**
-   - El pipeline de solicitud está compuesto por middleware. El middleware son componentes que procesan la solicitud o respuesta. Pueden realizar tareas como autenticación, autorización, logging, enrutamiento, compresión, entre otras.
+   - El pipeline de solicitud está compuesto por middleware. El middleware son componentes que procesan la solicitud o respuesta. 
+Pueden realizar tareas como autenticación, autorización, logging, enrutamiento, compresión, entre otras.
 
 2. **Orden de Ejecución:**
-   - Cada middleware en el pipeline se ejecuta en un orden específico. El orden de ejecución está determinado por el orden en que se agregan al pipeline durante la configuración de la aplicación.
+   - Cada middleware en el pipeline se ejecuta en un orden específico. El orden de ejecución está determinado por el orden en que se agregan 
+al pipeline durante la configuración de la aplicación.
 
 3. **Proceso de la Solicitud:**
    - Cuando llega una solicitud, pasa a través de cada middleware en el orden definido.
    - Cada middleware tiene la oportunidad de realizar alguna acción o modificar la solicitud antes de pasarla al siguiente middleware.
 
 4. **Controladores y Acciones:**
-   - En algún punto del pipeline, se ejecutan los controladores y acciones correspondientes a la ruta de la solicitud. Esto suele ocurrir después de que se ha realizado el enrutamiento.
+   - En algún punto del pipeline, se ejecutan los controladores y acciones correspondientes a la ruta de la solicitud. Esto suele ocurrir 
+después de que se ha realizado el enrutamiento.
 
 5. **Generación de Respuesta:**
-   - Después de que se ha ejecutado la lógica del controlador, la respuesta pasa de nuevo a través del pipeline, permitiendo que el middleware realice acciones adicionales o modifique la respuesta antes de enviarla al cliente.
+   - Después de que se ha ejecutado la lógica del controlador, la respuesta pasa de nuevo a través del pipeline, permitiendo que el middleware 
+realice acciones adicionales o modifique la respuesta antes de enviarla al cliente.
 
 6. **Finalización del Pipeline:**
    - La respuesta se envía al cliente una vez que ha pasado por todos los middleware.
 
-El pipeline de solicitud en ASP.NET Core ofrece flexibilidad y extensibilidad a través del uso de middleware. Los desarrolladores pueden agregar, quitar o reorganizar middleware según sea necesario para personalizar el comportamiento de la aplicación en función de los requisitos específicos. Esto facilita la construcción de aplicaciones web robustas y modularizadas.
+El pipeline de solicitud en ASP.NET Core ofrece flexibilidad y extensibilidad a través del uso de middleware. Los desarrolladores pueden agregar,
+ quitar o reorganizar middleware según sea necesario para personalizar el comportamiento de la aplicación en función de los requisitos específicos.
+ Esto facilita la construcción de aplicaciones web robustas y modularizadas.
 
 Usted está trabajando en un proyecto que tiene una arquitectura en capas.
 Las capas son:
@@ -158,12 +214,16 @@ El chequeo de la veracidad de un JWT se puede hacer a través de la implementaci
 Una clase puede implementar múltiples interfaces
 Es un contrato que define miembros (propiedades, métodos, etc) que deben ser definidos (implementados) en la clase que implementa la interfaz.
 Uso de interfaces para lograr polimorfismo:
-Las interfaces permiten lograr polimorfismo en .NET. Puedes tratar una instancia de una clase que implementa una interfaz como si fuera del tipo de esa interfaz.
+Las interfaces permiten lograr polimorfismo en .NET. Puedes tratar una instancia de una clase que implementa una interfaz como si fuera del 
+tipo de esa interfaz.
+
 Propiedades en interfaces:
 Además de métodos, las interfaces pueden contener propiedades, eventos y otros miembros
 Implementaciones explícitas:
-Puedes implementar una interfaz de manera explícita en una clase. Esto es útil cuando una clase implementa dos interfaces con miembros del mismo nombre. La implementación explícita permite diferenciar entre los dos.
-Las interfaces son una parte fundamental de la programación orientada a interfaces (IOP) en .NET y son ampliamente utilizadas para lograr abstracción, encapsulamiento y flexibilidad en el diseño de software.
+Puedes implementar una interfaz de manera explícita en una clase. Esto es útil cuando una clase implementa dos interfaces con miembros del mismo nombre.
+ La implementación explícita permite diferenciar entre los dos.
+Las interfaces son una parte fundamental de la programación orientada a interfaces (IOP) en .NET y son ampliamente utilizadas para lograr abstracción,
+ encapsulamiento y flexibilidad en el diseño de software.
 
 Cuál es el propósito principal de la inyección de dependencia?
 *Evitar la dependencia entre clases y simplificar la creación y gestión de objetos en una aplicación.
@@ -200,24 +260,28 @@ Clases, no tienen comportamientos sino solo estados en su definicion.
 diferencias:
 Dto: es una clase solo va a ser usada en el controller, para enviar o recibir informacion.
 Entidades: son mas importantes que los dtos porque determinan la estructura de los datos asi como arquitectura de la solucion
-el dto se puede eliminar renombrar cambiar entre otros, sin hacer la migracion. una entidad en cambio no, cada cambio que se haga requiere de una migracion. Esto es porque EF usa las entidades para diseñar la base de datos y no los dtos.
+el dto se puede eliminar renombrar cambiar entre otros, sin hacer la migracion. una entidad en cambio no, cada cambio que se haga 
+requiere de una migracion. Esto es porque EF usa las entidades para diseñar la base de datos y no los dtos.
 las entidades son las clases que van en el diagrama.
 
-para hacer dbset se necesita un nugget para instalar . los public <dbset> Users {get; set; } hace referencia a las tablas o a lo que nosotros queremos que se hagan tablas 
+para hacer dbset se necesita un nugget para instalar . los public <dbset> Users {get; set; } hace referencia a las tablas o a lo que nosotros 
+queremos que se hagan tablas 
 
 DB context es una clase de EF que convierte al heredarla en contexto a la clase.
 modelBuilder.Entity<Professor>().HasData( new Professor{})
 HasData le enviamos una lista de objetos para la carga inicial de los datos
 
 migraciones : consola de administrador de paquetes Add-Migration InitialMigration -Context ConsultaContex
-en appsettings.json hay que poner "DB" : {"ConnectionString" : "Data source=ConsultaAlumnos.db } (string que tienen las credenciales) sqlite (solo pide el nombre de la base de datos)
+en appsettings.json hay que poner "DB" : {"ConnectionString" : "Data source=ConsultaAlumnos.db } (string que tienen las credenciales) sqlite 
+(solo pide el nombre de la base de datos)
 https://github.com/prog3tup/ConsultaAlumnos
 https://github.com/PabloPaezSheridan/ConsultaAlumnos2TUP4/tree/main/ConsultaAlumnoEnClaseTarde
 --------- UNIDAD 1---------
 Net es un framework con herramientas para el desarrollo de software creado por Microsoft y lanzado en 2002. 
 NET Framework
  La última versión fue la 4.8 fue en abril de 2019. Por mucho tiempo fue el único. El código es abierto para ver pero no se puede contribuir. 
-Es side-by-side para las versiones mayores(los cambios mayores introducen modificaciones en el CLR), es decir que puede correr concurrentemente diferentes versiones mayores en un mismo SO.
+Es side-by-side para las versiones mayores(los cambios mayores introducen modificaciones en el CLR), es decir que puede correr concurrentemente 
+diferentes versiones mayores en un mismo SO.
 Ofrece un gran gama de tipos de aplicaciones que se pueden crear. Algunas de estos tipos (Workloads) son los siguientes:
 
 Console Applications: aplicaciones de consola.
@@ -230,10 +294,13 @@ Azure (WebJobs, Cloud Services)
 
 Net Core
 
-Completamente Open Source y el código se encuentra disponible en github. Es un framework multiplataforma, más liviano que net framework. La filosofía de Net Core es tener solo las librerías necesarias, y de hacer falta se instalan paquetes NuGet los cuales no son mas que set de librerías que incorporan las librerías que hacen falta para circunstancias particulares.
+Completamente Open Source y el código se encuentra disponible en github. Es un framework multiplataforma, más liviano que net framework. 
+La filosofía de Net Core es tener solo las librerías necesarias, y de hacer falta se instalan paquetes NuGet los cuales no son mas que set 
+de librerías que incorporan las librerías que hacen falta para circunstancias particulares.
 Net core puede correr SOs de Windows Red Hat(Linux), Ubuntu, Red Hat, Unix y Mac	
 
-Es totalmente side-by-side, sin importar si es una versión mayor o menor. También permite realizar aplicaciones self-contained es decir que es una aplicación que ya viene con Net Core incorporada en sí misma con todas las librerías e infraestructura que necesita
+Es totalmente side-by-side, sin importar si es una versión mayor o menor. También permite realizar aplicaciones self-contained es decir que 
+es una aplicación que ya viene con Net Core incorporada en sí misma con todas las librerías e infraestructura que necesita
 
 Los tipos de aplicaciones son los siguientes:
 Console applications
@@ -241,99 +308,153 @@ ASP.Net Core: MVC y API (una evulucion de net framework)
 UWP: para aplicaciones de escritorio
 
 Mono for Xamarin
-Completamente Open Source y el código se encuentra disponible en github. Es un runtime para crear aplicaciones móviles. Es la implementación Open Source y Multiplataforma del CLR original de Net Framework, es de 2001 y solo acepta C#. Por otro lado, la Librería de clases de Xamarin es de 2011, y provee clases para desarrollo móvil en Android y IoS.
+Completamente Open Source y el código se encuentra disponible en github. Es un runtime para crear aplicaciones móviles. Es la implementación Open Source
+ y Multiplataforma del CLR original de Net Framework, es de 2001 y solo acepta C#. Por otro lado, la Librería de clases de Xamarin es de 2011, y 
+provee clases para desarrollo móvil en Android y IoS.
 
-Xamarin permite crear aplicaciones móviles usando el entorno de desarrollo .NET en Visual Studio y usando C#. Por otro lado aplicaciones desarrolladas de esta forma son self-contained y se pueden instalar de forma nativa en dispositivos con Android o IoS y MAC Apple OS X
+Xamarin permite crear aplicaciones móviles usando el entorno de desarrollo .NET en Visual Studio y usando C#. 
+Por otro lado aplicaciones desarrolladas de esta forma son self-contained y se pueden instalar de forma nativa en dispositivos 
+con Android o IoS y MAC Apple OS X
 
 
 Net Standard
-Todos los runtimes que fueron descriptos tienen sus librerías de clases que le permiten realizar funciones específicas para los tipos de aplicaciones que cada uno permite desarrollar. Sin embargo esto hace difícil que se puedan compartir funciones entre los distintos runtimes
-Para solucionar esto está Net Standard el cual es un set de especificaciones que indica qué funciones (implementadas APIs) se pueden usar en todas las plataformas
+Todos los runtimes que fueron descriptos tienen sus librerías de clases que le permiten realizar funciones específicas para los 
+tipos de aplicaciones que cada uno permite desarrollar. Sin embargo esto hace difícil que se puedan compartir funciones entre los 
+distintos runtimes
+Para solucionar esto está Net Standard el cual es un set de especificaciones que indica qué funciones (implementadas APIs) se 
+pueden usar en todas las plataformas
 
 
 Common Infrastructure
-En la estructura común de .NET podemos ver en la primera imagen de la unidad que en la hay herramientas de compilación, lenguajes y componentes de runtimes. Todo esto es común a todo el ecosistema de .NET. 
+En la estructura común de .NET podemos ver en la primera imagen de la unidad que en la hay herramientas de compilación,
+ lenguajes y componentes de runtimes. Todo esto es común a todo el ecosistema de .NET. 
 
 
-Microsoft decidió realizar un gran esfuerzo para unificar los diferentes runtimes incorporando las características de todos el único framework. De esta forma nace .NET 5 en noviembre de 2020 y la meta es crear una nueva versión de .NET anualmente por lo que hoy en día (Febrero de 2022) la última versión de .NET es NET 6 lanzada en noviembre de 2021. Más sobre las novedades de NET 5
-El desarrollo de todos los runtimes en las páginas anteriores tiene como objetivo final entender cómo funciona NET es su completitud y también por consecuencia el de su sucesor NET 5 y sus siguientes versiones. 
+Microsoft decidió realizar un gran esfuerzo para unificar los diferentes runtimes incorporando las características de todos el único framework.
+ De esta forma nace .NET 5 en noviembre de 2020 y la meta es crear una nueva versión de .NET anualmente por lo que hoy en día (Febrero de 2022)
+ la última versión de .NET es NET 6 lanzada en noviembre de 2021. Más sobre las novedades de NET 5
+El desarrollo de todos los runtimes en las páginas anteriores tiene como objetivo final entender cómo funciona NET es su completitud y 
+también por consecuencia el de su sucesor NET 5 y sus siguientes versiones. 
 
 Cliente y Servidor
-El modelo cliente-servidor, también conocido como “principio cliente-servidor”, es un modelo de comunicación que permite la distribución de tareas dentro de una red de ordenadores.
+El modelo cliente-servidor, también conocido como “principio cliente-servidor”, es un modelo de comunicación que permite la distribución de 
+tareas dentro de una red de ordenadores.
 
-Un servidor es un hardware que proporciona los recursos necesarios para otros ordenadores o programas, pero un servidor también puede ser un programa informático que se comunica con los clientes. Un servidor acepta las peticiones del cliente, las procesa y proporciona la respuesta solicitada. También existen diferentes tipos de clientes. Un ordenador o un programa informático se comunica con el servidor, envía solicitudes y recibe respuestas del servidor. En cuanto al modelo cliente-servidor, representa la interacción entre el servidor y el cliente.
-El servidor es el responsable de proporcionar los servicios. Se encarga de ejecutar los servicios solicitados y entrega la respuesta esperada. El cliente, en cambio, utiliza y solicita los servicios proporcionados. Finalmente, recibe la respuesta del servidor
+Un servidor es un hardware que proporciona los recursos necesarios para otros ordenadores o programas, pero un servidor también puede ser un 
+programa informático que se comunica con los clientes. Un servidor acepta las peticiones del cliente, las procesa y proporciona la respuesta solicitada.
+ También existen diferentes tipos de clientes. Un ordenador o un programa informático se comunica con el servidor, envía solicitudes y 
+recibe respuestas del servidor. En cuanto al modelo cliente-servidor, representa la interacción entre el servidor y el cliente.
+El servidor es el responsable de proporcionar los servicios. Se encarga de ejecutar los servicios solicitados y entrega la respuesta esperada. 
+El cliente, en cambio, utiliza y solicita los servicios proporcionados. Finalmente, recibe la respuesta del servidor
 
 
 Ventajas
-El modelo cliente-servidor es uno de los conceptos arquitectónicos más utilizados en la tecnología de redes, dado que ofrece algunas ventajas significativas.
-La administración central es una de las principales ventajas. El servidor está en el centro de la red. Todos los usuarios o clientes lo utilizan. Los recursos importantes, como bases de datos, se encuentran en el servidor y son accesibles de forma centralizada. 
+El modelo cliente-servidor es uno de los conceptos arquitectónicos más utilizados en la tecnología de redes, dado que ofrece algunas 
+ventajas significativas.
+La administración central es una de las principales ventajas. El servidor está en el centro de la red. Todos los usuarios o clientes lo utilizan. 
+Los recursos importantes, como bases de datos, se encuentran en el servidor y son accesibles de forma centralizada. 
 
 Derechos de acceso controlados globalmente
-El almacenamiento central de recursos importantes permite una gestión segura y global de los derechos de acceso.Para proteger los datos de la mejor manera posible, hay que establecer derechos de acceso.
+El almacenamiento central de recursos importantes permite una gestión segura y global de los derechos de acceso.
+Para proteger los datos de la mejor manera posible, hay que establecer derechos de acceso.
 
 Un servidor para muchos clientes
-El número de clientes puede ampliarse. Varios clientes trabajan simultáneamente utilizando un único servidor. Los clientes comparten los recursos del servidor. También es posible que el servidor esté situado en un lugar distinto al de los clientes. Lo más importante es que el servidor y los clientes estén conectados a través de una red. Y por ende, no es necesario que los recursos estén en el mismo sitio. 
+El número de clientes puede ampliarse. Varios clientes trabajan simultáneamente utilizando un único servidor. 
+Los clientes comparten los recursos del servidor. 
+También es posible que el servidor esté situado en un lugar distinto al de los clientes. Lo más importante es que el servidor y 
+los clientes estén conectados a través de una red. Y por ende, no es necesario que los recursos estén en el mismo sitio. 
 
 Caída del servidor
 
 . Si el servidor se cae, los clientes dejan de funcionar porque no pueden recibir las respuestas necesarias del servidor.
 
 Recursos de un servidor
-El servidor realiza las tareas que requieren muchos recursos. La demanda de recursos de los clientes es mucho menor. Si el servidor tiene muy pocos recursos, afecta a todos los clientes. Por eso es importante elegir un proveedor que proporcione estos recursos de forma fiable.
+El servidor realiza las tareas que requieren muchos recursos. La demanda de recursos de los clientes es mucho menor. 
+Si el servidor tiene muy pocos recursos, afecta a todos los clientes. Por eso es importante elegir un proveedor 
+que proporcione estos recursos de forma fiable.
 
 Inversión de tiempo
 Su uso requiere mucha inversion de tiempo.
 
 
 Frontend y Backend
-La división Frontend y Backend apareció en el año 2008 con la salida de HTML5 y la aparición de las nuevas APIs. Frontend es la parte del sitio web que interactúa con los usuarios, por eso decimos que está del lado del cliente. Backend es la parte que se conecta con la base de datos y el servidor que utiliza dicho sitio web, por eso decimos que el backend corre del lado del servidor.
+La división Frontend y Backend apareció en el año 2008 con la salida de HTML5 y la aparición de las nuevas APIs. 
+Frontend es la parte del sitio web que interactúa con los usuarios, por eso decimos que está del lado del cliente. 
+Backend es la parte que se conecta con la base de datos y el servidor que utiliza dicho sitio web, por eso decimos que el backend corre del lado del servidor.
 
 ¿Qué es una API?
 Una API (Application Programming Interface) es una interfaz para que programas de software se comuniquen entre ellos 
-Pueden ser locales o remotas estas últimas utilizan un servicio web y sus arquitecturas pueden ser SOAP o REST , el tipo más común hoy en día es REST (Representational State Transfer), generalmente los archivos de información enviados y recibidos son JSON (objetos de javaScript
-. Las Api pueden ser públicas o privadas, las privadas requieren un autenticación que se realiza mediante un TOKEN, al momento de por ejemplo loguearte en una página web ésta envía tus datos y en caso de tener permisos se recibe el token, este contiene un objeto cifrado.
+Pueden ser locales o remotas estas últimas utilizan un servicio web y sus arquitecturas pueden ser SOAP o REST ,
+ el tipo más común hoy en día es REST (Representational State Transfer), generalmente los archivos de información enviados y 
+recibidos son JSON (objetos de javaScript
+. Las Api pueden ser públicas o privadas, las privadas requieren un autenticación que se realiza mediante un TOKEN, 
+al momento de por ejemplo loguearte en una página web ésta envía tus datos y en caso de tener permisos se recibe el token, este contiene un objeto cifrado.
 
 Request y Responses
-En informática, request–response o request–reply es uno de los métodos básicos que utilizan las computadoras para comunicarse entre sí en una red, en el que la primera computadora envía una solicitud de algunos datos y la segunda responde a la solicitud.
-Para simplificar, este patrón generalmente se implementa de forma puramente sincrónica, como en las llamadas de servicio web a través de HTTP, que mantiene una conexión abierta y espera hasta que se entrega la respuesta o expira el período de tiempo de espera
-En programación web las request y las responses tiene una forma específica con secciones y atributos que deben estar presente y con determinados valores. Esto los especifica el protocolo HTTP  o HTTPS con el cual se realizan casi todas las comunicaciones web
+En informática, request–response o request–reply es uno de los métodos básicos que utilizan las computadoras
+ para comunicarse entre sí en una red, en el que la primera computadora envía una solicitud de algunos datos y la segunda responde a la solicitud.
+Para simplificar, este patrón generalmente se implementa de forma puramente sincrónica, como en 
+las llamadas de servicio web a través de HTTP, que mantiene una conexión abierta y espera hasta que se entrega la respuesta o expira el período de tiempo de espera
+En programación web las request y las responses tiene una forma específica con secciones y atributos 
+que deben estar presente y con determinados valores. Esto los especifica el protocolo HTTP  o HTTPS con el cual se realizan casi todas las comunicaciones web
 
 Arquitecturas multi-servidor
-También puede haber varios servidores para ofrecer un servicio, estos pueden tener diferentes “direcciones” para accederlos y ciertas configuraciones para que si la disponibilidad de algunos de ellos se ve comprometida entonces el servicio lo ofrece alguno de los otros que se encuentra en correcto estado, esta tecnica se llama “mirroring”
+También puede haber varios servidores para ofrecer un servicio, estos pueden tener diferentes 
+“direcciones” para accederlos y ciertas configuraciones para que si la disponibilidad de algunos de ellos se ve comprometida
+ entonces el servicio lo ofrece alguno de los otros que se encuentra en correcto estado, esta tecnica se llama “mirroring”
 
-Otro otra forma de implementar la arquitectura es mediante la adquisición de capacidad de procesamiento de la nube mediante el uso de servicios de AWS, GCP, o Azure (también hay otros pero estos claramente son los más completos y por lejos acaparan la inmensa mayoría de la oferta). Estas nubes permiten disponibilizar el servicio que queremos sin que nos tengamos que hacer cargo de la infraestructura ( el o los servidores físicos) ellos se encargan de asegurar un elevado ratio de disponibilidad a cambio del pago correspondiente. Esto se llama procesamiento distribuido
+Otro otra forma de implementar la arquitectura es mediante la adquisición de capacidad de procesamiento de la nube mediante el 
+uso de servicios de AWS, GCP, o Azure (también hay otros pero estos claramente son los más completos y por lejos acaparan la 
+inmensa mayoría de la oferta). Estas nubes permiten disponibilizar el servicio que queremos sin que nos tengamos que hacer 
+cargo de la infraestructura ( el o los servidores físicos) ellos se encargan de asegurar un elevado ratio de disponibilidad a 
+cambio del pago correspondiente. Esto se llama procesamiento distribuido
 
 Navegadores, Motores de búsqueda y Postman
-Los motores de búsqueda (Google, Bing, The Pirate Bay) son servicios web que nos proveen de las direcciones de sitios web mediante la búsqueda en enorme base de datos de sitios webs con el uso de algoritmos que intentan brindarnos las mejores aproximaciones de lo que buscamos mediante coincidencias en el contenido de los sitios y nuestros parametros de busqueda. Los navegadores (Chrome, Mozilla, Firefox, Safari, Thor) son aplicaciones que pueden usar estos buscadores para acceder a sitios webs, esencialmente lo único que necesitan los navegadores para acceder a un sitio web es su dirección (dominio o ip) y conexión a internet
+Los motores de búsqueda (Google, Bing, The Pirate Bay) son servicios web que nos proveen de las direcciones de sitios web mediante 
+la búsqueda en enorme base de datos de sitios webs con el uso de algoritmos que intentan brindarnos las mejores aproximaciones de lo
+ que buscamos mediante coincidencias en el contenido de los sitios y nuestros parametros de busqueda. Los navegadores 
+(Chrome, Mozilla, Firefox, Safari, Thor) son aplicaciones que pueden usar estos buscadores para acceder a sitios webs, 
+esencialmente lo único que necesitan los navegadores para acceder a un sitio web es su dirección (dominio o ip) y conexión a internet
 
-Postman es una aplicación que nos permite realizar solicitudes “custom” a servidores, es decir no tiene que interpretar código fuente para realizar una solicitud como lo hace un navegador con los sitios web, sino que podemos armar la solicitud como queramos. El uso de esta herramienta está limitado a probar el funcionamiento de un servidor, esto es muy útil en la programación o en el testing 
+Postman es una aplicación que nos permite realizar solicitudes “custom” a servidores, es decir no tiene que interpretar código fuente
+ para realizar una solicitud como lo hace un navegador con los sitios web, sino que podemos armar la solicitud como queramos. 
+El uso de esta herramienta está limitado a probar el funcionamiento de un servidor, esto es muy útil en la programación o en el testing 
 
 
 
 ----------UNIDAD2----------
 UML: ***************
-Unified Model Language o lenguaje de modelos unificado es un herramienta que nos provee una serie de convenciones, estructuras, estándares, reglas para el análisis y diseño orientado a objetos. Es una herramienta fundamental para los programadores orientados a objetos, que nos permite pensar en los objetos de una forma ordenada y metodológica.
+Unified Model Language o lenguaje de modelos unificado es un herramienta que nos provee una serie de convenciones, estructuras, estándares,
+ reglas para el análisis y diseño orientado a objetos. Es una herramienta fundamental para los programadores orientados a objetos, que nos 
+permite pensar en los objetos de una forma ordenada y metodológica.
 UP:***************
-Unified Process o  proceso unificado es un forma de construir un sistema que introduce una serie de disciplinas y fases en ese proceso y que usa a UML como standard en la elaboración de los artefactos, es una metodología de desarrollo de software que nos propone una forma de hacer software y utiliza UML para elaborar sus diagramas y documentos
+Unified Process o  proceso unificado es un forma de construir un sistema que introduce una serie de disciplinas y fases en ese proceso y 
+que usa a UML como standard en la elaboración de los artefactos, es una metodología de desarrollo de software que nos propone una forma 
+de hacer software y utiliza UML para elaborar sus diagramas y documentos
 
 FASES Y DISCIPLINAS:***************
-El UP hace uso de una serie de conceptos para explicar su metodología, dos de ellos son las Fases y las Disciplinas. Para UP las Fases son aquellas que están asociadas a una transición temporal, en cambio las disciplinas están asociadas al tipo de trabajo que en ellas se realiza, es importante entender que no son lo mismo ni tampoco su diferencia es redundante ya que la relación entre fases y disciplinas es bastante dinámica.
+El UP hace uso de una serie de conceptos para explicar su metodología, dos de ellos son las Fases y las Disciplinas. Para UP las Fases son
+ aquellas que están asociadas a una transición temporal, en cambio las disciplinas están asociadas al tipo de trabajo que en ellas se realiza,
+ es importante entender que no son lo mismo ni tampoco su diferencia es redundante ya que la relación entre fases y disciplinas es bastante dinámica.
 
 Fases
-Inicio: es una visión aproximada de él/los problemas a resolver en ella se hace análisis del negocio, se determina el alcance a abarcar, se realizan estimaciones indefectiblemente imprecisas. Es una fase de viabilidad
+Inicio: es una visión aproximada de él/los problemas a resolver en ella se hace análisis del negocio, se determina el alcance a abarcar,
+ se realizan estimaciones indefectiblemente imprecisas. Es una fase de viabilidad
 
-Elaboración: visión refinada, implementación iterativa del núcleo central de la arquitectura, resolución de riesgos altos, identificación de más requerimientos o requisitos. Se logran estimaciones más realistas. Es una fase de implementación
+Elaboración: visión refinada, implementación iterativa del núcleo central de la arquitectura, resolución de riesgos altos, 
+identificación de más requerimientos o requisitos. Se logran estimaciones más realistas. Es una fase de implementación
 
 Construcción: se resuelven de forma iterativa los demás riesgos, se prepara para el despliegue
 
-Transición: Se hacen pruebas beta (pruebas en un entorno relativamente real, con algunos usuarios finales o bien casos de usos factibles en el negocio). Se realiza el despliegue del producto elaborado
+Transición: Se hacen pruebas beta (pruebas en un entorno relativamente real, con algunos usuarios finales o bien casos de usos factibles en el negocio).
+ Se realiza el despliegue del producto elaborado
 
 
 Disciplinas
 
 Planificación
-En esta fase se incluyen tareas como la determinación del ámbito del proyecto, un estudio de viabilidad, análisis de riesgos, costes estimados, asignación de recursos en las distintas etapas, etc.
+En esta fase se incluyen tareas como la determinación del ámbito del proyecto, un estudio de viabilidad, análisis de riesgos, costes estimados,
+ asignación de recursos en las distintas etapas, etc.
 Son tareas que influyen en el éxito del proyecto, por eso es necesaria una planificación inicial.
 
 Análisis
@@ -350,7 +471,8 @@ Es importante tener en cuenta la adquisición de productos necesarios para que e
 
 Pruebas
 Conseguiremos detectar los fallos que se hayan cometido en etapas anteriores, para que no repercuta en el usuario final.
-Esta fase del ciclo de vida del software hay que repetirla tantas veces como sea necesaria, ya que la calidad y estabilidad final del software dependerá de esta fase.
+Esta fase del ciclo de vida del software hay que repetirla tantas veces como sea necesaria, ya que la calidad y estabilidad final del 
+software dependerá de esta fase.
 
 Despliegue
 En esta fase pondremos el software en funcionamiento.
@@ -378,24 +500,33 @@ Comienza con la recolección de requisitos y definición de objetivos globales, 
 El prototipo es evaluado por el cliente, y nos permite refinar los requisitos hasta llegar a lo que el cliente espera.
 
 Modelo de desarrollo iterativo e incremental
-Se basa en la ampliación y refinamiento sucesivos del sistema mediante múltiples iteraciones, con retroalimentación cíclica y adaptación como elementos principales. El sistema crece incrementalmente a lo largo del tiempo, iteración tras iteración, y por ello su nombre
+Se basa en la ampliación y refinamiento sucesivos del sistema mediante múltiples iteraciones, con retroalimentación cíclica y
+ adaptación como elementos principales. El sistema crece incrementalmente a lo largo del tiempo, iteración tras iteración, y por ello su nombre
 
 
 Programación Orientada a objetos y principios fundamentales**************
 Encapsulación:
-La encapsulación es la característica de un lenguaje POO que permite que todo lo referente a un objeto quede aislado dentro de éste. Es decir, que todos los datos referentes a un objeto queden "encerrados" dentro de éste y sólo se puede acceder a ellos a través de los miembros que la clase proporciona (propiedades y métodos).
+La encapsulación es la característica de un lenguaje POO que permite que todo lo referente a un objeto quede aislado dentro de éste.
+ Es decir, que todos los datos referentes a un objeto queden "encerrados" dentro de éste y sólo se puede acceder a ellos a través de
+ los miembros que la clase proporciona (propiedades y métodos).
 
-Por ejemplo, en el caso de las personas, toda la información sobre éstas está circunscrita al ámbito de dicha persona.Gracias a la encapsulación, toda la información de un objeto está contenida dentro del propio objeto.
+Por ejemplo, en el caso de las personas, toda la información sobre éstas está circunscrita al ámbito de dicha persona.Gracias a la
+ encapsulación, toda la información de un objeto está contenida dentro del propio objeto.
 
 Abstracción
-el principio de abstracción lo que implica es que la clase debe representar las características de la entidad hacia el mundo exterior, pero ocultando la complejidad que llevan aparejada. O sea, nos abstrae de la complejidad que haya dentro dándonos una serie de atributos y comportamientos (propiedades y funciones) que podemos usar sin preocuparnos de qué pasa por dentro cuando lo hagamos.
+el principio de abstracción lo que implica es que la clase debe representar las características de la entidad hacia el mundo exterior,
+ pero ocultando la complejidad que llevan aparejada. O sea, nos abstrae de la complejidad que haya dentro dándonos una serie de atributos y
+ comportamientos (propiedades y funciones) que podemos usar sin preocuparnos de qué pasa por dentro cuando lo hagamos.
 
-Así, una clase (y por lo tanto todos los objetos que se crean a partir de ella) debe exponer para su uso solo lo que sea necesario. Cómo se haga "por dentro" es irrelevante para los programas que hagan uso de los objetos de esa clase.
-La abstracción está muy relacionada con la encapsulación, pero va un paso más allá pues no sólo controla el acceso a la información, sino también oculta la complejidad de los procesos que estemos implementando.
+Así, una clase (y por lo tanto todos los objetos que se crean a partir de ella) debe exponer para su uso solo lo que sea necesario.
+ Cómo se haga "por dentro" es irrelevante para los programas que hagan uso de los objetos de esa clase.
+La abstracción está muy relacionada con la encapsulación, pero va un paso más allá pues no sólo controla el acceso a la información, 
+sino también oculta la complejidad de los procesos que estemos implementando.
 
 
 Herencia
-Dado que una clase es un patrón que define cómo es y cómo se comporta una cierta entidad, una clase que hereda de otra obtiene todos los rasgos de la primera y añade otros nuevos y además también puede modificar algunos de los que ha heredado.
+Dado que una clase es un patrón que define cómo es y cómo se comporta una cierta entidad, una clase que hereda de otra obtiene 
+todos los rasgos de la primera y añade otros nuevos y además también puede modificar algunos de los que ha heredado.
 
 A la clase de la que se hereda se le llama clase base o padre, y a la clase que hereda de ésta se le llama clase derivada o hija.
 
@@ -403,18 +534,25 @@ A la clase de la que se hereda se le llama clase base o padre, y a la clase que 
 Polimorfismo
 La palabra polimorfismo viene del griego "polys" (muchos) y "morfo" (forma), y quiere decir "cualidad de tener muchas formas".
 
-En POO, el concepto de polimorfismo se refiere al hecho de que varios objetos de diferentes clases, pero con una base común, se pueden usar de manera indistinta, sin tener que saber de qué clase exacta son para poder hacerlo.
+En POO, el concepto de polimorfismo se refiere al hecho de que varios objetos de diferentes clases, pero con una base común,
+ se pueden usar de manera indistinta, sin tener que saber de qué clase exacta son para poder hacerlo.
 
-El polimorfismo permite que una clase hija puede redefinir un método de la clase padre. En el caso de que la clase hija tuviese un método definido con el mismo nombre pero con el atributo “override”, la que es válida para objeto instancia de la clase hija es el método redefinido en la clase hija. 
+El polimorfismo permite que una clase hija puede redefinir un método de la clase padre. En el caso de que la clase hija tuviese
+ un método definido con el mismo nombre pero con el atributo “override”, la que es válida para objeto instancia de la clase hija 
+es el método redefinido en la clase hija. 
 
 
 Artefactos UML fundamentales*********
 Minuta de relevamiento
-Normalmente hecho por el analista del equipo, una minuta de relevamiento es una narración descriptiva de él/los procesos  de negocio de la empresa que son relevantes para el sistema que se precisa desarrollar. 
+Normalmente hecho por el analista del equipo, una minuta de relevamiento es una narración descriptiva de él/los procesos 
+de negocio de la empresa que son relevantes para el sistema que se precisa desarrollar. 
 
 Lista de requerimientos
-Los requerimientos son capacidades y condiciones con las cuales debe ser conforme el sistema y más ampliamente el proyecto que se desea construir. Por lo tanto el primer desafío con el que nos encontramos a la hora de desarrollar un sistema es con encontrar comunicar y registrar los requerimientos.
-Normalmente son definidas por el cliente, sin embargo esto es todo un proceso porque usualmente el cliente no sabe lo que quiere, e incluso aunque lo sepa sus necesidades pueden cambiar a lo largo del desarrollo del sistema. 
+Los requerimientos son capacidades y condiciones con las cuales debe ser conforme el sistema y más ampliamente el proyecto que
+ se desea construir. Por lo tanto el primer desafío con el que nos encontramos a la hora de desarrollar un sistema es con encontrar 
+comunicar y registrar los requerimientos.
+Normalmente son definidas por el cliente, sin embargo esto es todo un proceso porque usualmente el cliente no sabe lo que quiere,
+ e incluso aunque lo sepa sus necesidades pueden cambiar a lo largo del desarrollo del sistema. 
 
 Tipos de requerimientos*****
 F Funcional: Características, capacidades, seguridad. Deben ser cumplidas para que el sistema se pueda usar.
@@ -425,7 +563,8 @@ S Soporte (Supportability): adaptabilidad, facilidad de mantenimiento, internaci
 + Implementación, Interfaz, Legales, Operaciones, Empaquetamiento, 
 
 Casos de uso ******
-Un caso de uso es una colección de escenarios con éxito y fallo relacionados, que describe los actores utilizando el sistema para satisfacer un objetivo.
+Un caso de uso es una colección de escenarios con éxito y fallo relacionados, que describe los actores utilizando el sistema 
+para satisfacer un objetivo.
 
 Un caso de uso esta compuesto por:
 
@@ -442,105 +581,157 @@ Es importante destacar que para cada requerimiento de tipo funcional se debe cor
 Tipo de caso de uso
 
 Difieren en la perspectiva  y el nivel de detalle que cada uno contempla.
-Casos de uso resumen de negocio(CURN).:  son los casos de uso desde el punto de vista del proceso de negocio antes de tener el sistema. Es uno por requerimiento funcional.
-Caso de uso resumen de sistema(CURS): es uno por cada caso de uso resumen de negocio pero desde el punto de vista del proceso con el sistema hecho
-Caso de uso usuario(CUU): estos casos de uso son producto de partir los CURS en pequeñas partes enfocándose en uso especifico de sistema  y corto en el tiempo. Cada CUU se  corresponde solo a un CURS
+Casos de uso resumen de negocio(CURN).:  son los casos de uso desde el punto de vista del proceso de negocio antes de tener el sistema.
+ Es uno por requerimiento funcional.
+Caso de uso resumen de sistema(CURS): es uno por cada caso de uso resumen de negocio pero desde el punto de vista del proceso 
+con el sistema hecho
+Caso de uso usuario(CUU): estos casos de uso son producto de partir los CURS en pequeñas partes enfocándose en uso especifico de sistema
+  y corto en el tiempo. Cada CUU se  corresponde solo a un CURS
 
 
 Diagrama de Clases
-El diagrama de clases es uno de los diagramas incluidos en UML 2.5 clasificado dentro de los diagramas de estructura y, como tal, se utiliza para representar los elementos que componen un sistema de información desde un punto de vista estático.
+El diagrama de clases es uno de los diagramas incluidos en UML 2.5 clasificado dentro de los diagramas de estructura y, como tal, 
+se utiliza para representar los elementos que componen un sistema de información desde un punto de vista estático.
 El diagrama UML de clases está formado por dos elementos: clases, relaciones e interfaces.
 
-es un diagrama puramente orientado al modelo de programación orientado a objetos, ya que define las clases que se utilizarán cuando se pase a la fase de construcción y la manera en que se relacionan las mismas. Se podría equiparar, salvando las distancias, al famoso diagrama de modelo Entidad-Relación (E/R), no recogido en UML, tiene una utilidad similar: la representación de datos y su interacción. Ambos diagramas muestran el modelo lógico de los datos de un sistema.
+es un diagrama puramente orientado al modelo de programación orientado a objetos, ya que define las clases que se utilizarán cuando
+ se pase a la fase de construcción y la manera en que se relacionan las mismas. Se podría equiparar, salvando las distancias, 
+al famoso diagrama de modelo Entidad-Relación (E/R), no recogido en UML, tiene una utilidad similar: la representación de datos y
+ su interacción. Ambos diagramas muestran el modelo lógico de los datos de un sistema.
 Clases
-Las clases son el elemento principal del diagrama y representa, como su nombre indica, una clase dentro del paradigma de la orientación a objetos. Este tipo de elementos normalmente se utilizan para representar conceptos o entidades del “negocio”. Una clase define un grupo de objetos que comparten características, condiciones y significado. La manera más rápida para encontrar clases sobre un enunciado, sobre una idea de negocio o, en general, sobre un tema concreto es buscar los sustantivos que aparecen en el mismo. Por poner algún ejemplo, algunas clases podrían ser: Animal, Persona, Mensaje, 
+Las clases son el elemento principal del diagrama y representa, como su nombre indica, una clase dentro del paradigma de la orientación a objetos.
+ Este tipo de elementos normalmente se utilizan para representar conceptos o entidades del “negocio”. 
+Una clase define un grupo de objetos que comparten características, condiciones y significado. La manera más rápida para encontrar clases
+ sobre un enunciado, sobre una idea de negocio o, en general, sobre un tema concreto es buscar los sustantivos que aparecen en el mismo.
+ Por poner algún ejemplo, algunas clases podrían ser: Animal, Persona, Mensaje, 
 clase está compuesta por tres elementos: nombre de la clase, atributos, funciones. 
 
 Para representar la clase con estos elementos se utiliza una caja que es dividida en tres zonas utilizando para ello líneas horizontales:
 
 La primera de las zonas se utiliza para el nombre de la clase.
 La segunda de las zonas se utiliza para escribir los atributos de la clase, uno por línea.
-La última de las zonas incluye cada una de las funciones que ofrece la clase. De forma parecida a los atributos. De la misma manera que con los atributos, se suele simplificar indicando únicamente el nombre de la función y, en ocasiones, el tipo devuelto.
+La última de las zonas incluye cada una de las funciones que ofrece la clase. De forma parecida a los atributos.
+ De la misma manera que con los atributos, se suele simplificar indicando únicamente el nombre de la función y, en ocasiones, el tipo devuelto.
 Relaciones
-Una relación identifica una dependencia. Esta dependencia puede ser entre dos o más clases (más común) o una clase hacía sí misma (menos común, pero existen), este último tipo de dependencia se denomina dependencia reflexiva. Las relaciones se representan con una línea que une las clases, esta línea variará dependiendo del tipo de relación
+Una relación identifica una dependencia. Esta dependencia puede ser entre dos o más clases (más común) o
+ una clase hacía sí misma (menos común, pero existen), este último tipo de dependencia se denomina dependencia reflexiva. 
+Las relaciones se representan con una línea que une las clases, esta línea variará dependiendo del tipo de relación
 
-Las relaciones en el diagrama de clases tienen varias propiedades, que dependiendo la profundidad que se quiera dar al diagrama se representarán o no. Estas propiedades son las siguientes:
+Las relaciones en el diagrama de clases tienen varias propiedades, que dependiendo la profundidad que se quiera dar al diagrama se representarán o no. 
+Estas propiedades son las siguientes:
 
-Multiplicidad. Es decir, el número de elementos de una clase que participan en una relación. Se puede indicar un número, un rango… Se utiliza n o * para identificar un número cualquiera.
-Nombre de la asociación. En ocasiones se escribe una indicación de la asociación que ayuda a entender la relación que tienen dos clases. Suelen utilizarse verbos como por ejemplo: “Una empresa contrata a n empleados”
+Multiplicidad. Es decir, el número de elementos de una clase que participan en una relación. Se puede indicar un número, un rango… 
+Se utiliza n o * para identificar un número cualquiera.
+Nombre de la asociación. En ocasiones se escribe una indicación de la asociación que ayuda a entender la relación que tienen dos clases.
+ Suelen utilizarse verbos como por ejemplo: “Una empresa contrata a n empleados”
 
 Tipos principales de relaciones
 
 Asociación
-Este tipo de relación es el más común y se utiliza para representar dependencia semántica. Se representa con una simple línea continua que une las clases que están incluidas en la asociación.
+Este tipo de relación es el más común y se utiliza para representar dependencia semántica. 
+Se representa con una simple línea continua que une las clases que están incluidas en la asociación.
 
 Un ejemplo de asociación podría ser: “Una mascota pertenece a una persona”.
 
 Agregación o composición
-Es una representación jerárquica que indica a un objeto y las partes que componen ese objeto. Es decir, representa relaciones en las que un objeto es parte de otro, pero aun así debe tener existencia en sí mismo.
+Es una representación jerárquica que indica a un objeto y las partes que componen ese objeto. 
+Es decir, representa relaciones en las que un objeto es parte de otro, pero aun así debe tener existencia en sí mismo.
 
 Se representa con una línea que tiene un rombo en la parte de la clase que es una agregación de la otra clase (es decir, en la clase que contiene las otras).
 
 Dependencia
-Se utiliza este tipo de relación para representar que una clase requiere de otra para ofrecer sus funcionalidades. Es muy sencilla y se representa con una flecha discontinua que va desde la clase que necesita la utilidad de la otra flecha hasta esta misma.
+Se utiliza este tipo de relación para representar que una clase requiere de otra para ofrecer sus funcionalidades.
+ Es muy sencilla y se representa con una flecha discontinua que va desde la clase que necesita la utilidad de la otra flecha hasta esta misma.
 Herencia
-Otra relación muy común en el diagrama de clases es la herencia. Este tipo de relaciones permiten que una clase (clase hija o subclase) reciba los atributos y métodos de otra clase (clase padre o superclase). Estos atributos y métodos recibidos se suman a los que la clase tiene por sí misma. Se utiliza en relaciones “es un”.
+Otra relación muy común en el diagrama de clases es la herencia. Este tipo de relaciones permiten que una clase (clase hija o subclase)
+ reciba los atributos y métodos de otra clase (clase padre o superclase). Estos atributos y métodos recibidos se suman a los que la clase tiene por sí misma.
+ Se utiliza en relaciones “es un”.
 
 Cómo dibujar un diagrama de clases
 Identifica los nombres de las clase
 El primer paso es identificar los objetos primarios del sistema. Las clases suelen corresponder a sustantivos dentro del dominio del problema.
 Distingue las relaciones
-El siguiente paso es determinar cómo cada una de las clases u objetos están relacionados entre sí. Busque los puntos en común y las abstracciones entre ellos; esto le ayudará a agruparlos al dibujar el diagrama de clase.
+El siguiente paso es determinar cómo cada una de las clases u objetos están relacionados entre sí. Busque los puntos en común y
+ las abstracciones entre ellos; esto le ayudará a agruparlos al dibujar el diagrama de clase.
 Crea la estructura
-Primero, agregue los nombres de clase y vincule con los conectores apropiados, prestando especial atención a la cardinalidad o las herencias. Deje los atributos y funciones para más tarde, una vez que esté la estructura del diagrama resuelta.
+Primero, agregue los nombres de clase y vincule con los conectores apropiados, prestando especial atención a la cardinalidad o
+ las herencias. Deje los atributos y funciones para más tarde, una vez que esté la estructura del diagrama resuelta.
 
 
 ---------UNIDAD 3 ----------
 
 Arquitecturas por capas*************
-Una capa es un conjunto de “cosas” que tienen cierta responsabilidad. Por ejemplo, una capa puede ser un conjunto de clases, agrupadas en un paquete, dentro de nuestro programa que representan cierta responsabilidad o también puede ser un  ejecutable que se comunica con otros y cada ejecutable representa una capa o pueden ser un sistema y cada sistema es en sí una capa. Cuando nos referimos a capas es una abstracción de responsabilidades. 
+Una capa es un conjunto de “cosas” que tienen cierta responsabilidad. Por ejemplo, una capa puede ser un conjunto de clases, 
+agrupadas en un paquete, dentro de nuestro programa que representan cierta responsabilidad o también puede ser un  
+ejecutable que se comunica con otros y cada ejecutable representa una capa o pueden ser un sistema y cada sistema es en sí una capa. 
+Cuando nos referimos a capas es una abstracción de responsabilidades. 
 
 Además, la arquitectura establece reglas de cómo se deben comunicar las capas. 
 
 Primera regla 
-Cada capa debe tener una responsabilidad única. Es decir que las capas deben estar perfectamente delimitadas de que se ocupa cada una de ellas, por ejemplo, podemos tener una capa de “presentación” que será la encargada de atender los eventos del cliente y encargada de representar la información para el mismo. Por otro lado, podemos tener la capa de “acceso a datos” que será la encargada de guardar y acceder a los datos. 
+Cada capa debe tener una responsabilidad única. Es decir que las capas deben estar perfectamente delimitadas de que se ocupa cada una de ellas,
+ por ejemplo, podemos tener una capa de “presentación” que será la encargada de atender los eventos del cliente y 
+encargada de representar la información para el mismo. Por otro lado, podemos tener la capa de “acceso a datos” que será la encargada de 
+guardar y acceder a los datos. 
 
 Segunda regla 
-Las capas deben respetar una estructura jerárquica estricta. Quiere decir que cada capa puede comunicarse sólo con la que está debajo suyo, pero NO al revés. Por ejemplo, una clase ubicada en la capa de presentación puede llamar a un método ubicado en la capa de acceso a datos, pero nunca la capa de acceso a datos puede llamar a un método de la capa de presentación. Y cuando nos referimos a la próxima más baja significa que no se puede saltar capas. Veamos un ejemplo gráfico. 
+Las capas deben respetar una estructura jerárquica estricta. Quiere decir que cada capa puede comunicarse sólo con la que está debajo suyo, 
+pero NO al revés. Por ejemplo, una clase ubicada en la capa de presentación puede llamar a un método ubicado en la capa de acceso a datos, 
+pero nunca la capa de acceso a datos puede llamar a un método de la capa de presentación. Y cuando nos referimos a la próxima más baja 
+significa que no se puede saltar capas. Veamos un ejemplo gráfico. 
+
 Ventajas 
 Entre sus ventajas se encuentran las siguientes: 
 
 Es fácil testear cada capa por separado debido a la separación clara de responsabilidades que existe entre ellas. 
-Al momento de hacer un cambio, si se implementó bien la separación de responsabilidad, este cambio solo debe impactar a la capa responsable y no a todas. Esto se conoce como desacople. 
+Al momento de hacer un cambio, si se implementó bien la separación de responsabilidad, este cambio solo debe impactar 
+a la capa responsable y no a todas. Esto se conoce como desacople. 
 Desventajas 
 Si se implementaron demasiadas capas el rendimiento de la aplicación puede verse afectado  
 Ciertas operaciones al ser modificadas pueden afectar a todas las capas, haciendo visible que no existe un 100% de desacople entre estas. 
 
 Arquitectura de tres capas *******
-Esta arquitectura permite desarrollar n número de capas siempre y cuando se respeten las dos reglas expuestas. Sin embargo la arquitectura de 3 capas es bastante utilizada y es muy útil, pedagógicamente, para entender la separación de responsabilidades de las capas.
+Esta arquitectura permite desarrollar n número de capas siempre y cuando se respeten las dos reglas expuestas. 
+Sin embargo la arquitectura de 3 capas es bastante utilizada y es muy útil, pedagógicamente, para entender la separación
+ de responsabilidades de las capas.
 
-La arquitectura de tres capas en particular es muy utilizada ya que propone dividir las capas en 3 específicas que son frecuentes en aplicaciones empresariales web. Como veníamos mencionando en los ejemplos las capas que propone son las siguientes. 
+La arquitectura de tres capas en particular es muy utilizada ya que propone dividir las capas en 3 específicas que son
+ frecuentes en aplicaciones empresariales web. Como veníamos mencionando en los ejemplos las capas que propone son las siguientes. 
 Presentación
- Atiende los eventos del cliente y representa los datos para el mismo. Teniendo en cuenta que el cliente puede ser un humano u otro sistema, esta capa será encargada en caso del humano de atender los clics (u otros eventos) en un HTML y de renderizar la información de manera visual.  En caso de que sea otro sistema puede atender peticiones rest(daremos esto en los siguientes capítulos) y devolver información en un formato estructurado (json, xml, etc) que es más fácil de interpretar por un sistema. 
+ Atiende los eventos del cliente y representa los datos para el mismo. Teniendo en cuenta que el cliente puede ser un humano u otro sistema,
+ esta capa será encargada en caso del humano de atender los clics (u otros eventos) en un HTML y de renderizar la información de manera visual.
+  En caso de que sea otro sistema puede atender peticiones rest(daremos esto en los siguientes capítulos) y devolver información en 
+un formato estructurado (json, xml, etc) que es más fácil de interpretar por un sistema. 
 Lógica de negocio
- En esta capa se encuentra todo lo que refiere a las reglas que se encuentran en el negocio, o sea los requerimientos funcionales de nuestro sistema.Por ejemplo, si se tiene un alta de usuario esta capa debe proveer el medio para altaDeUsuario y dentro del método se debe realizar todos los pasos para dar de alta un usuario (enviar mail, validar nombre, etc). 
+ En esta capa se encuentra todo lo que refiere a las reglas que se encuentran en el negocio, o sea los requerimientos funcionales de nuestro sistema
+.Por ejemplo, si se tiene un alta de usuario esta capa debe proveer el medio para altaDeUsuario y dentro del método se debe realizar 
+todos los pasos para dar de alta un usuario (enviar mail, validar nombre, etc). 
 Acceso a datos
- Mediante esta capa podremos obtener o guardar los datos que utilizará nuestra aplicación. Observar que no habla de cómo se realiza la persistencia, si es en base de datos o en archivo o etc, solo habla de acceso a datos. Por ejemplo, esta capa debería proveer un medio para poder guardar el usuario y otro para obtenerlo. 
+ Mediante esta capa podremos obtener o guardar los datos que utilizará nuestra aplicación. Observar que no habla de cómo se realiza la persistencia,
+ si es en base de datos o en archivo o etc, solo habla de acceso a datos. Por ejemplo, esta capa debería proveer un medio para poder guardar el
+ usuario y otro para obtenerlo. 
 Beneficio 
-Si logramos realizar esta separación de responsabilidades podemos notar como a una capa no le interesa cómo está implementada la otra. Así yo puedo reemplazar las implementaciones de las capas, pero esto no afectaría a las demás. Ejemplo: mi capa de acceso a datos ofrece un método guardarUsuario y por dentro este es guardado en un txt. En el futuro deseo cambiar esta implementación entonces seguiría existiendo el método guardarUsuario pero por dentro este es persistido en una base de datos.
+Si logramos realizar esta separación de responsabilidades podemos notar como a una capa no le interesa cómo está implementada la otra.
+ Así yo puedo reemplazar las implementaciones de las capas, pero esto no afectaría a las demás. Ejemplo: mi capa de acceso a datos ofrece
+ un método guardarUsuario y por dentro este es guardado en un txt. En el futuro deseo cambiar esta implementación entonces seguiría existiendo
+ el método guardarUsuario pero por dentro este es persistido en una base de datos.
 
 
 
 
 Web API
-El término API es una abreviatura de Application Programming Interfaces, que en español significa interfaz de programación de aplicaciones. Se trata de un conjunto de definiciones y protocolos que se utiliza para desarrollar e integrar el software de las aplicaciones, permitiendo la comunicación entre dos aplicaciones de software a través de un conjunto de reglas.
+El término API es una abreviatura de Application Programming Interfaces, que en español significa interfaz de programación de aplicaciones.
+ Se trata de un conjunto de definiciones y protocolos que se utiliza para desarrollar e integrar el software de las aplicaciones, 
+permitiendo la comunicación entre dos aplicaciones de software a través de un conjunto de reglas.
 Una de las principales funciones de las API es poder facilitar el trabajo a los desarrolladores y ahorrarles tiempo y dinero. 
 
 
 Request y Response
 HTTP REQUEST y RESPONSE son dos conceptos básicos en el desarrollo web, pero no siempre le quedan claros a los programadores. 
-HTTP significa  HyperText Transfer Protocol. Esta es la forma de comunicación de datos básica en Internet. La comunicación de datos empieza con un request enviado del cliente, y termina con la respuesta del servidor web.
-Las peticiones o requests se hacen siempre a un endpoint. Es decir un punto de acceso de una API que procesa dicha solicitud y responde de acuerdo a su implementación interna. Aquí se puede ver que las APIs toman claramente la encapsulación de la POO
+HTTP significa  HyperText Transfer Protocol. Esta es la forma de comunicación de datos básica en Internet. La comunicación de datos
+ empieza con un request enviado del cliente, y termina con la respuesta del servidor web.
+Las peticiones o requests se hacen siempre a un endpoint. Es decir un punto de acceso de una API que procesa dicha solicitud y responde 
+de acuerdo a su implementación interna. Aquí se puede ver que las APIs toman claramente la encapsulación de la POO
 
 
 Un HTTP request se compone de:
@@ -548,15 +739,18 @@ Un HTTP request se compone de:
 Método: GET, POST, PUT, etc. Indica que tipo de request es.
 Path: la URL que se solicita, donde se encuentra el resource.
 Protocolo: contiene HTTP y su versión, actualmente 1.1.
-Headers. Son esquemas de key: value que contienen información sobre el HTTP request y el navegador. Aquí también se encuentran los datos de las cookies. La mayoría de los headers son opcionales.
+Headers. Son esquemas de key: value que contienen información sobre el HTTP request y el navegador. Aquí también se encuentran
+ los datos de las cookies. La mayoría de los headers son opcionales.
 Body. Si se envía información al servidor a través de POST o PUT, ésta va en el body.
 
 HTTP Response Structure from Web Server
 Una vez que el navegador envía el HTTP request, el servidor responde con un HTTP response, compuesto por:
 
 Protocolo. Contiene HTTP y su versión, actualmente 1.1.
-Status code. El código de respuesta, por ejemplo: 200 OK, que significa que el GET request ha sido satisfactorio y el servidor devolverá los contenidos del documento solicitado. Otro ejemplo es 404 Not Found, el servidor no ha encontrado el resource solicitado.
-Headers. Contienen información sobre el software del servidor, cuando se modificó por última vez el resource solicitado, el mime type, etc. De nuevo la mayoría son opcionales.
+Status code. El código de respuesta, por ejemplo: 200 OK, que significa que el GET request ha sido satisfactorio y el servidor 
+devolverá los contenidos del documento solicitado. Otro ejemplo es 404 Not Found, el servidor no ha encontrado el resource solicitado.
+Headers. Contienen información sobre el software del servidor, cuando se modificó por última vez el resource solicitado,
+ el mime type, etc. De nuevo la mayoría son opcionales.
 Body. Si el servidor devuelve información que no sean headers ésta va en el body.
 
 
@@ -575,61 +769,118 @@ PATCH: El método PATCH  es utilizado para aplicar modificaciones parciales a un
 
 
 
-MVC es una propuesta de arquitectura del software utilizada para separar el código por sus distintas responsabilidades, manteniendo distintas capas que se encargan de hacer una tarea muy concreta, lo que ofrece beneficios diversos.
-MVC se usa inicialmente en sistemas donde se requiere el uso de interfaces de usuario, aunque en la práctica el mismo patrón de arquitectura se puede utilizar para distintos tipos de aplicaciones. Surge de la necesidad de crear software más robusto con un ciclo de vida más adecuado, donde se potencie la facilidad de mantenimiento, reutilización del código y la separación de conceptos.
-Su fundamento es la separación del código en tres capas diferentes, acotadas por su responsabilidad, en lo que se llaman Modelos, Vistas y Controladores.
+MVC es una propuesta de arquitectura del software utilizada para separar el código por sus distintas responsabilidades, 
+manteniendo distintas capas que se encargan de hacer una tarea muy concreta, lo que ofrece beneficios diversos.
+MVC se usa inicialmente en sistemas donde se requiere el uso de interfaces de usuario, aunque en la práctica el mismo patrón
+ de arquitectura se puede utilizar para distintos tipos de aplicaciones. Surge de la necesidad de crear software más robusto
+ con un ciclo de vida más adecuado, donde se potencie la facilidad de mantenimiento, reutilización del código y la separación de conceptos.
+Su fundamento es la separación del código en tres capas diferentes, acotadas por su responsabilidad, en lo que se llaman Modelos,
+ Vistas y Controladores.
 Por qué MVC
-La rama de la ingeniería del software se preocupa por crear procesos que aseguren calidad en los programas que se realizan y esa calidad atiende a diversos parámetros que son deseables para todo desarrollo, como la estructuración de los programas o reutilización del código, lo que debe influir positivamente en la facilidad de desarrollo y el mantenimiento.
-Los ingenieros del software se dedican a estudiar de qué manera se pueden mejorar los procesos de creación de software y una de las soluciones a las que han llegado es la arquitectura basada en capas que separan el código en función de sus responsabilidades o conceptos. Por tanto, cuando estudiamos MVC lo primero que tenemos que saber es que está ahí para ayudarnos a crear aplicaciones con mayor calidad.
+La rama de la ingeniería del software se preocupa por crear procesos que aseguren calidad en los programas que se realizan y
+ esa calidad atiende a diversos parámetros que son deseables para todo desarrollo, como la estructuración de los programas o
+ reutilización del código, lo que debe influir positivamente en la facilidad de desarrollo y el mantenimiento.
+Los ingenieros del software se dedican a estudiar de qué manera se pueden mejorar los procesos de creación de software y una de las 
+soluciones a las que han llegado es la arquitectura basada en capas que separan el código en función de sus responsabilidades o conceptos
+. Por tanto, cuando estudiamos MVC lo primero que tenemos que saber es que está ahí para ayudarnos a crear aplicaciones con mayor calidad.
 VENTAJAS
-Si queremos que en un equipo intervengan perfiles distintos de profesionales y trabajen de manera autónoma, como diseñadores o programadores, ambos tienen que tocar los mismos archivos y el diseñador se tiene necesariamente que relacionar con mucho código en un lenguaje de programación que puede no serle familiar, siendo que a éste quizás solo le interesan los bloques donde hay HTML.
-Durante la manipulación de datos en una aplicación es posible que estemos accediendo a los mismos datos en lugares distintos. Por ejemplo, podemos acceder a los datos de un artículo desde la página donde se muestra éste, la página donde se listan los artículos de un manual o la página de backend donde se administran los artículos de un sitio web
+Si queremos que en un equipo intervengan perfiles distintos de profesionales y trabajen de manera autónoma, como diseñadores o programadores
+, ambos tienen que tocar los mismos archivos y el diseñador se tiene necesariamente que relacionar con mucho código en un
+ lenguaje de programación que puede no serle familiar, siendo que a éste quizás solo le interesan los bloques donde hay HTML.
+Durante la manipulación de datos en una aplicación es posible que estemos accediendo a los mismos datos en lugares distintos.
+ Por ejemplo, podemos acceder a los datos de un artículo desde la página donde se muestra éste, la página donde se listan los 
+artículos de un manual o la página de backend donde se administran los artículos de un sitio web
 
 Capas
 Modelos
-Es la capa donde se trabaja con los datos, por tanto contendrá mecanismos para acceder a la información y también para actualizar su estado. Los datos los tendremos habitualmente en una base de datos, por lo que en los modelos tendremos todas las funciones que accederán a las tablas y harán los correspondientes selects, updates, inserts, etc.
+Es la capa donde se trabaja con los datos, por tanto contendrá mecanismos para acceder a la información y también para actualizar su estado.
+ Los datos los tendremos habitualmente en una base de datos, por lo que en los modelos tendremos todas las funciones que accederán a las
+ tablas y harán los correspondientes selects, updates, inserts, etc.
 
-No obstante, cabe mencionar que cuando se trabaja con MVC lo habitual también es utilizar otras librerías o algún ORM como Entity Framework, que nos permiten trabajar con abstracción de bases de datos y persistencia en objetos. Por ello, en vez de usar directamente sentencias SQL, que suelen depender del motor de base de datos con el que se esté trabajando, se utiliza un dialecto de acceso a datos basado en clases y objetos.
+No obstante, cabe mencionar que cuando se trabaja con MVC lo habitual también es utilizar otras librerías o algún ORM como Entity Framework,
+ que nos permiten trabajar con abstracción de bases de datos y persistencia en objetos. Por ello, en vez de usar directamente sentencias SQL,
+ que suelen depender del motor de base de datos con el que se esté trabajando, se utiliza un dialecto de acceso a datos basado en clases y objetos.
 
 Vistas
-Las vistas, como su nombre nos hace entender, contienen el código de nuestra aplicación que va a producir la visualización de las interfaces de usuario, o sea, el código que nos permitirá renderizar los estados de nuestra aplicación en HTML. En las vistas nada más tenemos los códigos HTML y PHP que nos permite mostrar la salida.
+Las vistas, como su nombre nos hace entender, contienen el código de nuestra aplicación que va a producir la visualización de 
+las interfaces de usuario, o sea, el código que nos permitirá renderizar los estados de nuestra aplicación en HTML. 
+En las vistas nada más tenemos los códigos HTML y PHP que nos permite mostrar la salida.
 
 
 Controladores
-Contiene el código necesario para responder a las acciones que se solicitan en la aplicación, como visualizar un elemento, realizar una compra, una búsqueda de información, etc.
+Contiene el código necesario para responder a las acciones que se solicitan en la aplicación, como visualizar un elemento, 
+realizar una compra, una búsqueda de información, etc.
 
-En realidad es una capa que sirve de enlace entre las vistas y los modelos, respondiendo a los mecanismos que puedan requerirse para implementar las necesidades de nuestra aplicación. Sin embargo, su responsabilidad no es manipular directamente datos, ni mostrar ningún tipo de salida, sino servir de enlace entre los modelos y las vistas para implementar las diversas necesidades del desarrollo.
+En realidad es una capa que sirve de enlace entre las vistas y los modelos, respondiendo a los mecanismos que puedan requerirse
+ para implementar las necesidades de nuestra aplicación. Sin embargo, su responsabilidad no es manipular directamente datos, 
+ni mostrar ningún tipo de salida, sino servir de enlace entre los modelos y las vistas para implementar las diversas necesidades del desarrollo.
 
 
-Hay un concepto que se usa mucho cuando se explica el MVC que es la "lógica de negocio". Es un conjunto de reglas que se siguen en el software para reaccionar ante distintas situaciones. En una aplicación el usuario se comunica con el sistema por medio de una interfaz, pero cuando acciona esa interfaz para realizar acciones con el programa, se ejecutan una serie de procesos que se conocen como la lógica del negocio. Este es un concepto de desarrollo de software en general.
-Sin embargo existe otro concepto que se usa en la terminología del MVC que es la "lógica de aplicación", que es algo que pertenece a los controladores. Por ejemplo, cuando me piden ver el resumen de datos de un usuario. Esa acción le llega al controlador, que tendrá que acceder al modelo del usuario para pedir sus datos. Luego llamará a la vista apropiada para poder mostrar esos datos del usuario. Si en el resumen del usuario queremos mostrar los artículos que ha publicado dentro de la aplicación, quizás el controlador tendrá que llamar al modelo de artículos, pedirle todos los publicados por ese usuario y con ese listado de artículos invocar a la vista correspondiente para mostrarlos. Todo ese conjunto de acciones que se realizan invocando métodos de los modelos y mandando datos a las vistas forman parte de la lógica de la aplicación.
+Hay un concepto que se usa mucho cuando se explica el MVC que es la "lógica de negocio". Es un conjunto de reglas que se siguen 
+en el software para reaccionar ante distintas situaciones. En una aplicación el usuario se comunica con el sistema por medio de 
+una interfaz, pero cuando acciona esa interfaz para realizar acciones con el programa, se ejecutan una serie de procesos que se 
+conocen como la lógica del negocio. Este es un concepto de desarrollo de software en general.
+Sin embargo existe otro concepto que se usa en la terminología del MVC que es la "lógica de aplicación", que es algo que pertenece
+ a los controladores. Por ejemplo, cuando me piden ver el resumen de datos de un usuario. Esa acción le llega al controlador, que 
+tendrá que acceder al modelo del usuario para pedir sus datos. Luego llamará a la vista apropiada para poder mostrar esos datos 
+del usuario. Si en el resumen del usuario queremos mostrar los artículos que ha publicado dentro de la aplicación, quizás el controlador
+ tendrá que llamar al modelo de artículos, pedirle todos los publicados por ese usuario y con ese listado de artículos invocar 
+a la vista correspondiente para mostrarlos. Todo ese conjunto de acciones que se realizan invocando métodos de los modelos y 
+mandando datos a las vistas forman parte de la lógica de la aplicación.
 
-en MVC la lógica se divide en dos capas distintas, cierta lógica (lógica de negocios) está presente en la capa de Modelos o en la capa que hayamos definido para ella y cierta lógica en la capa de controladores(lógica de aplicación). Es importante destacar que en la capa de vistas nunca hay ningún tipo de lógica.
+en MVC la lógica se divide en dos capas distintas, cierta lógica (lógica de negocios) está presente en la capa de Modelos 
+o en la capa que hayamos definido para ella y cierta lógica en la capa de controladores(lógica de aplicación). 
+Es importante destacar que en la capa de vistas nunca hay ningún tipo de lógica.
 
 
 --------- UNIDAD 4 ---------
 Bases de datos relacionales
-Los datos se almacenan de forma persistente (que duren más allá del ciclo de vida de la aplicación o una sesión de usuario) en discos, pero para poder garantizar el acceso y la manipulación de esos datos de forma consistente y segura es que existen las bases de datos. Hay diferentes tipos de bases de datos con diferentes mecanismos de estructuración de los datos así como de las herramientas que brindan. El modelo relacional es sin duda el más usado y el más extendido en el mundo
+Los datos se almacenan de forma persistente (que duren más allá del ciclo de vida de la aplicación o una sesión de usuario) en discos,
+ pero para poder garantizar el acceso y la manipulación de esos datos de forma consistente y segura es que existen las bases de datos. 
+Hay diferentes tipos de bases de datos con diferentes mecanismos de estructuración de los datos así como de las herramientas que brindan.
+ El modelo relacional es sin duda el más usado y el más extendido en el mundo
 
 Utilidades y ventajas
-El modelo relacional es el mejor para mantener la consistencia de los datos en todas las aplicaciones y copias de la base de datos (denominadas instancias). Por ejemplo, cuando un cliente deposita dinero en un cajero automático y, luego, mira el saldo de la cuenta en un teléfono móvil, el cliente espera ver que ese depósito se refleja inmediatamente en un saldo de cuenta actualizado. Las bases de datos relacionales se destacan en este tipo de consistencia de datos, lo que garantiza que múltiples instancias de una base de datos tengan los mismos datos todo el tiempo.
+El modelo relacional es el mejor para mantener la consistencia de los datos en todas las aplicaciones y copias de la base de datos
+ (denominadas instancias). Por ejemplo, cuando un cliente deposita dinero en un cajero automático y, luego, mira el saldo de la 
+cuenta en un teléfono móvil, el cliente espera ver que ese depósito se refleja inmediatamente en un saldo de cuenta actualizado. 
+Las bases de datos relacionales se destacan en este tipo de consistencia de datos, lo que garantiza que múltiples instancias de 
+una base de datos tengan los mismos datos todo el tiempo.
 
 
 Estructura
-En una base de datos relacional los datos se almacenan en tablas. Las tablas tienen columnas en cada una de ellas se especifica el nombre del atributo a almacenar(Ej: para la tabla Animales una columna puede tener de nombre de atributo “dueño”) y el tipo de dato (Ej: varchar, que es como string en c#)
-Uno de los aspectos más importantes de las bases de datos es la posibilidad de identificar unívocamente a cada registro de las tablas. Es decir cada registro es identificable por un dato o conjunto de datos.(Ej: para la tabla Personas el dato que lo difiere no podría ser nombre porque hay personas que se llaman igual, pero puede ser el DNI). Esto en las bases de datos relacionales se logran a través de las claves.
-Cada tabla debe tener una clave primaria, es decir un dato o conjunto de datos que permiten identificar cada registro de la misma. No puede haber dos registros con una clave idéntica. Las claves primarias pueden ser simples, compuestas por un único atributo, o compuestas, es decir compuestas por más de un atributo.
+En una base de datos relacional los datos se almacenan en tablas. Las tablas tienen columnas en cada una de ellas se especifica 
+el nombre del atributo a almacenar(Ej: para la tabla Animales una columna puede tener de nombre de atributo “dueño”) y 
+el tipo de dato (Ej: varchar, que es como string en c#)
+Uno de los aspectos más importantes de las bases de datos es la posibilidad de identificar unívocamente a cada registro de las tablas.
+ Es decir cada registro es identificable por un dato o conjunto de datos.(Ej: para la tabla Personas el dato que lo difiere
+ no podría ser nombre porque hay personas que se llaman igual, pero puede ser el DNI). Esto en las bases de datos relacionales se
+ logran a través de las claves.
+Cada tabla debe tener una clave primaria, es decir un dato o conjunto de datos que permiten identificar cada registro de la misma. 
+No puede haber dos registros con una clave idéntica. Las claves primarias pueden ser simples, compuestas por un único atributo,
+ o compuestas, es decir compuestas por más de un atributo.
 
-Además de las claves primarias existen otras claves que se llaman claves foráneas, estas permiten relacionar un registro de una tabla con otro registro de otra tabla. Esto es muy útil y muy usado. Por ejemplo, la tabla “CuentasBancarias” probablemente tenga los atributos “TipoDocumento” y “NroDocumento” que permiten relacionar una cuenta bancaria con una persona de la tabla Personas. Las claves foráneas como acabamos de ver pueden ser simples o compuestas
+Además de las claves primarias existen otras claves que se llaman claves foráneas, estas permiten relacionar un registro de 
+una tabla con otro registro de otra tabla. Esto es muy útil y muy usado. Por ejemplo, la tabla “CuentasBancarias” probablemente 
+tenga los atributos “TipoDocumento” y “NroDocumento” que permiten relacionar una cuenta bancaria con una persona de la tabla Personas.
+ Las claves foráneas como acabamos de ver pueden ser simples o compuestas
 
 
-Un ORM es un modelo de programación para mapear estructuras de una base de datos relacional, como por ejemplo SQL Server, MySQL u Oracle, entre otras. Su objetivo es simplificar y acelerar el desarrollo de las aplicaciones.
-Las estructuras de la Base de datos relacional se vinculan con las entidades lógicas o con la BD virtual que define el ORM, para que las distintas acciones de CRUD (crear, leer, actualizar o borrar) se puedan realizar de manera indirecta a través del ORM.No solo permiten mapear, sino también liberarnos de picar código SQL que habitualmente hace falta para las queries o consultas y gestionar la persistencia de datos Por lo que, los objetos se pueden manipular mediante lenguajes según el tipo de ORM utilizado. Un ejemplo es LINQ sobre Entity Framework de Microsoft.
-los ORMs más completos ofrecen distintos servicios y sin escribir código de SQL. Es una ventaja, dado que permite atacar las entidades de la Base de datos virtual sin generar el código. Por lo que, se acelera el desarrollo de las aplicaciones.
+Un ORM1 es un modelo de programación para mapear estructuras de una base de datos relacional, como por ejemplo SQL Server, MySQL u Oracle,
+ entre otras. Su objetivo es simplificar y acelerar el desarrollo de las aplicaciones.
+Las estructuras de la Base de datos relacional se vinculan con las entidades lógicas o con la BD virtual que define el ORM,
+ para que las distintas acciones de CRUD (crear, leer, actualizar o borrar) se puedan realizar de manera indirecta a través del ORM.
+No solo permiten mapear, sino también liberarnos de picar código SQL que habitualmente hace falta para las queries o consultas y gestionar
+ la persistencia de datos Por lo que, los objetos se pueden manipular mediante lenguajes según el tipo de ORM utilizado. Un ejemplo es LINQ 
+sobre Entity Framework de Microsoft.
+los ORM1s más completos ofrecen distintos servicios y sin escribir código de SQL. Es una ventaja, dado que permite atacar las entidades de
+ la Base de datos virtual sin generar el código. Por lo que, se acelera el desarrollo de las aplicaciones.
 
 
 ¿Para qué sirve un mapeador de objetos relacionales?
-Su principal funcionalidad pasa porque el proceso de programación de la BD sea más rápido, dado que se consiguen reducir los códigos y que el mapeo sea más automático. De tal forma que el programador o desarrollador no tenga que adaptar los códigos a las tablas en base a las necesidades específicas de cada aplicación.
+Su principal funcionalidad pasa porque el proceso de programación de la BD sea más rápido, dado que se consiguen reducir los códigos
+ y que el mapeo sea más automático. De tal forma que el programador o desarrollador no tenga que adaptar los códigos a las tablas en
+ base a las necesidades específicas de cada aplicación.
 
 
 
@@ -655,24 +906,35 @@ Promueve un enfoque coherente en todos aplicaciones y equipos
 
 Patrón repository
 
-Está diseñado para crear una capa de abstracción entre la capa de acceso a datos y la capa de lógica de negocios de una aplicación. Implementar estos patrones puede ayudar a aislar la aplicación de cambios en el almacén de datos y puede facilitar la realización de pruebas unitarias automatizadas o el desarrollo controlado por pruebas
-Este patrón permite crear una clase (o varias) en donde estén definidos todos los métodos que interactúen con la base de datos, esta clase consume el contexto de la base de datos.
+Está diseñado para crear una capa de abstracción entre la capa de acceso a datos y la capa de lógica de negocios de una aplicación.
+ Implementar estos patrones puede ayudar a aislar la aplicación de cambios en el almacén de datos y puede facilitar la realización
+ de pruebas unitarias automatizadas o el desarrollo controlado por pruebas
+Este patrón permite crear una clase (o varias) en donde estén definidos todos los métodos que interactúen con la base
+ de datos, esta clase consume el contexto de la base de datos.
 
-Se tiene una entidad Celular y una lista con varios de ellos. Escriba una sentencia con LINQ que retorne los modelos de la marca que llega como parámetro. Completar con lo que iría en la línea 18. Agregar los celulares a la lista no forma parte del ejercicio.
+Se tiene una entidad Celular y una lista con varios de ellos. Escriba una sentencia con LINQ que retorne los modelos de la
+ marca que llega como parámetro. Completar con lo que iría en la línea 18. Agregar los celulares a la lista no forma parte del ejercicio.
 
 return listaCelulares.Where(x => x.Marca == marca).Select(x => x.Modelo).ToList();
 
 JWT
 
-Para poder implementar un sistema de autenticación y autorización utilizando JWT (JSON Web Tokens), la API debera permitir a los usuarios autenticarse y autorizarse correctamente para acceder a los recursos protegidos, para ello se debe: 
+Para poder implementar un sistema de autenticación y autorización utilizando JWT (JSON Web Tokens), la API debera permitir a 
+los usuarios autenticarse y autorizarse correctamente para acceder a los recursos protegidos, para ello se debe: 
 * Configurar la autenticación en el archivo Program.cs utilizando el middleware de autenticación de ASP .Net Core
-* Implementar la lógica de autorización mediante el uso de Claims en los endpoints protegidos para verificar si el usuario tiene los roles necesarios para acceder a los recursos solicitados
-* Para setear el tiempo de expiracion de un token debo generar un objeto de tipo SecurityTokenDescriptor() y modificar el atributo SigningCredentials
+* Implementar la lógica de autorización mediante el uso de Claims en los endpoints protegidos para verificar si el usuario tiene 
+los roles necesarios para acceder a los recursos solicitados
+* Para setear el tiempo de expiracion de un token debo generar un objeto de tipo SecurityTokenDescriptor() y modificar el atributo 
+SigningCredentials
 
-IQueryable<T> se utiliza para proporcionar capacidades de consulta contra una fuente de datos específica donde se conoce el tipo de datos. Por ejemplo, Entity Framework implementa la interfaz IQueryable<T> para admitir consultas LINQ con una base de datos subyacente como SQL Server.3 jun 2020
+IQueryable<T> se utiliza para proporcionar capacidades de consulta contra una fuente de datos específica donde se conoce el tipo de datos.
+ Por ejemplo, Entity Framework implementa la interfaz IQueryable<T> para admitir consultas LINQ con una base de datos subyacente como SQL Server.3 jun 2020
 IEnumerable
-Es una interface que define el contrato de metodos a implementar por una clase determinada. De base, es implementada por iEnumerator y se utiliza para, dada una clase especifica o generica, enumerar los atributos publicos de esa misma.
-La ICollection interfaz extiende ; IDictionary y IList son interfaces más especializadas IEnumerableque extienden ICollection. Una IDictionary implementación es una colección de pares clave-valor, como la Hashtable clase . Una IList implementación es una colección de valores y se puede acceder a sus miembros por índice, como la ArrayList clase .
+Es una interface que define el contrato de metodos a implementar por una clase determinada. De base, es implementada por iEnumerator y
+ se utiliza para, dada una clase especifica o generica, enumerar los atributos publicos de esa misma.
+La ICollection interfaz extiende ; IDictionary y IList son interfaces más especializadas IEnumerableque extienden ICollection. 
+Una IDictionary implementación es una colección de pares clave-valor, como la Hashtable clase . Una IList implementación es una colección 
+de valores y se puede acceder a sus miembros por índice, como la ArrayList clase .
 
 
 Respuestas HTTP
@@ -682,7 +944,8 @@ https://es.semrush.com/blog/codigos-de-estado-http/?kw=&cmp=LM_SRCH_DSA_Blog_ES&
 
 2XX - Códigos de éxito: el servidor ha recibido, entendido y procesado correctamente la solicitud.
 
-3XX - Códigos de redirección: el servidor recibió la solicitud, pero hay una redirección a otro lugar (o, en casos raros, debe completarse alguna acción adicional distinta de una redirección). 
+3XX - Códigos de redirección: el servidor recibió la solicitud, pero hay una redirección a otro lugar 
+(o, en casos raros, debe completarse alguna acción adicional distinta de una redirección). 
 
 4XX - Códigos de error del cliente: el servidor no pudo encontrar (o alcanzar) la página o el web. Se trata de un error de web. 
 
@@ -779,9 +1042,12 @@ IEnumerable
 
 Espacio de nombres: System.Collections
 
-Un IEnumerable es una lista o un contenedor que puede contener algunos elementos. Puede iterar a través de cada elemento en IEnumerable. No puede editar los elementos como agregar, eliminar, actualizar, etc., sino que solo usa un contenedor para contener una lista de elementos. Es el tipo más básico de contenedor de listas.
+Un IEnumerable es una lista o un contenedor que puede contener algunos elementos. Puede iterar a través de cada elemento en IEnumerable. 
+No puede editar los elementos como agregar, eliminar, actualizar, etc., sino que solo usa un contenedor para contener una lista de elementos.
+ Es el tipo más básico de contenedor de listas.
 
-Todo lo que se obtiene en un IEnumerable es un enumerador que ayuda a iterar sobre los elementos. Un IEnumerable no contiene ni siquiera el recuento de los elementos de la lista, en su lugar, tiene que iterar sobre los elementos para obtener el recuento de elementos.
+Todo lo que se obtiene en un IEnumerable es un enumerador que ayuda a iterar sobre los elementos. Un IEnumerable no contiene ni siquiera 
+el recuento de los elementos de la lista, en su lugar, tiene que iterar sobre los elementos para obtener el recuento de elementos.
 
 Un IEnumerable admite el filtrado de elementos mediante la cláusula where.
 
@@ -789,7 +1055,8 @@ ICollection
 
 Espacio de nombres: System.Collections
 
-ICollection es otro tipo de colección, que se deriva de IEnumerable y amplía su funcionalidad para agregar, quitar y actualizar elementos en la lista. ICollection también contiene el recuento de elementos en él y no necesitamos iterar sobre todos los elementos para obtener el número total de elementos.
+ICollection es otro tipo de colección, que se deriva de IEnumerable y amplía su funcionalidad para agregar, quitar y actualizar elementos en la lista. 
+ICollection también contiene el recuento de elementos en él y no necesitamos iterar sobre todos los elementos para obtener el número total de elementos.
 
 El recuento del total de elementos se puede recuperar en tiempo O(1).
 
