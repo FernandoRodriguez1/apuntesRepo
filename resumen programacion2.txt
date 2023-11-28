@@ -1,4 +1,25 @@
  
+En el desarrollo de una API utilizando C# ASP .Net Core, 
+¿cuáles son los pasos necesarios para manejar una petición HTTP POST en la creacion de un recurso en la base de datos?
+Definir un controlador que herede de la clase ControllerBase y un método decorado con la atributo [HttpPost].
+Dentro de este método, se realiza la lógica necesaria y se retorna un objeto ActionResult<T> con el resultado en formato JSON y
+ la ruta de acceso al recurso dentro de un return Created()
+
+Un cliente necesita que la API le permita ordenar sus productos de los mas vendidos a los menos vendidos, 
+¿Cuál seria el mejor camino para realizar esta tarea?
+Crear un metodo en la capa logica que usa el respository que tiene inyectado para traer los productos activos, 
+luego, en el metodo de la capa logica, ordenar los productos de menor a mayor.Devolver las lista de 
+clientes ordenada a el controlador de la vista el cual arma un dto extrayendo los datos no relevantes y 
+lo manda la vista para que los muestre
+
+¿cuál es la diferencia entre una petición GET y una petición POST?
+En una petición GET, los parámetros son enviados en la URL de la solicitud, generalmente
+como parte de la cadena de consulta (query string), visible en la barra de direcciones del navegador. 
+En cambio, en una petición POST, los parámetros son enviados en el cuerpo (body) de la solicitud, ocultos 
+al usuario comúnmente.
+
+Las peticiones GET son idempotentes, mientras que las peticiones POST no lo son.
+
 Un ORM permite:
 Mapear objetos de un lenguaje de programación a las tablas de una base de datos relacional.
 Cambiar de base de datos con mayor facilidad.
@@ -200,6 +221,12 @@ Client-Server, Stateless, Cache, Uniform interface y Code on demand.
 Respecto a inyección de dependencia, ¿cuales de estas opciones son correctas?
 .NET soporta la inyección de dependencias de forma integrada en el framework.
 Consiste en darle a un objeto sus variables de instancia
+
+
+¿Cuales son los pasos para realizar una inyección de dependencia?
+Crear una propiedad privada readonly del tipo de servicio que queremos inyectar
+Crear un constructor que reciba un parámetro de la clase que queremos inyectar y asignar dicho parámetro a la propiedad privada
+Asignarle un ciclo de vida a el servicio a inyectar usando el objeto builder.Services
  
 En el paradigma de programación orientada a objetos (POO), ¿cuál de las siguientes afirmaciones es INCORRECTA?
 La herencia múltiple permite que una clase herede de varias clases base, lo que promueve la reutilización de código.
