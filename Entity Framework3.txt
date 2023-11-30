@@ -1,3 +1,23 @@
+¿Qué significa "LINQ" en el desarrollo de software?
+b) Language-Integrated Query.
+¿Cuál es el propósito principal de Postman en el desarrollo de API?
+Facilita la creación y prueba de solicitudes HTTP.
+¿Qué ventajas ofrece un ORM en comparación con el acceso directo a bases de datos?
+Mayor productividad y mantenimiento del código.
+¿Qué es Entity Framework en el contexto de desarrollo de software?
+Un framework de mapeo objeto-relacional.
+¿Cómo implementa Entity Framework el mapeo objeto-relacional?
+Mediante atributos en las clases del modelo.
+¿Qué significa la sigla "ORM"?
+ Object-Relational Mapping.
+¿Cómo funciona un ORM en términos generales?
+ Mapea objetos a tablas de bases de datos.
+¿Cuál es una de las principales ventajas de utilizar un ORM en el desarrollo de software?
+ Simplifica la interacción con bases de datos.
+¿Cuál es un enfoque común para conectarse a una base de datos sin utilizar un ORM?
+Utilizar consultas SQL embebidas directamente en el código.
+¿Cuándo podría ser preferible evitar el uso de un ORM en un proyecto?
+ En proyectos con datos simples y sin relaciones complejas.
 JWT
  
 Seleccione las siguientes afirmaciones sobre JWT que son ciertas:
