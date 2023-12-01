@@ -1,3 +1,8 @@
+Para un programa de gestión de stock que se utilizará en un entorno sin acceso a Internet y que busca un diseño atractivo
+y un desarrollo rápido, podrías considerar el uso de Windows Presentation Foundation (WPF) como parte de la plataforma
+.NET. WPF es un framework de desarrollo de aplicaciones de escritorio para Windows que permite la creación de interfaces
+de usuario modernas y visualmente atractivas
+
 ¿Qué significa "LINQ" en el desarrollo de software?
 b) Language-Integrated Query.
 ¿Cuál es el propósito principal de Postman en el desarrollo de API?
