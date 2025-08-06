@@ -1,5 +1,5 @@
  
-En el desarrollo de una API utilizando C# ASP .Net Core, 
+En el desarrollo de una API utilizando C# ASP .Net Core 
 ¿cuáles son los pasos necesarios para manejar una petición HTTP POST en la creacion de un recurso en la base de datos?
 Definir un controlador que herede de la clase ControllerBase y un método decorado con la atributo [HttpPost].
 Dentro de este método, se realiza la lógica necesaria y se retorna un objeto ActionResult<T> con el resultado en formato JSON y
